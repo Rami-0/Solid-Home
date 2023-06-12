@@ -8,13 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-	<React.StrictMode>
-		<React.Suspense fallback={'loading...'}>
-			<BrowserRouter>
-				<Provider store={store}>
-					<App />
-				</Provider>
-			</BrowserRouter>
-		</React.Suspense>
-	</React.StrictMode>,
+  <React.StrictMode>
+    <React.Suspense fallback={'loading...'}>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </React.Suspense>
+  </React.StrictMode>
 );
