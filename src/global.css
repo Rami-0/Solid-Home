@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+:root {
+  --blue: #0069ff;
+  --pr-text: #333333;
+  --sec-text: #575656;
+  --bg-pr: #ffffff;
+  --bg-sec: #f9f9fb;
+  --color-1: #d7d7d7;
+  --color-2: #ececec;
+  --color-3: #f3f3f3;
+}
+
+/* Title 1 Semibold */
+h1 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--pr-text);
+}
+/* Title 1 Medium */
+h2 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: var(--pr-text);
+}
+/* Title 2 Medium */
+h3 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--pr-text);
+}
+/* Title 3 Medium */
+h4 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 21px;
+  color: var(--pr-text);
+}
+/* Button 1 Semibold */
+.Button--1 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+/* Button 2 Semibold */
+.Button--2 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+/* Headline Medium */
+.Headline {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+/* Subtitle 1 Regular */
+.Subtitle--1 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 23px;
+}
+/* Subtitle 2 Regular */
+.Subtitle--2 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+/* Subtitle 3 Regular */
+.Subtitle--3 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+/* Subtitle 4 Medium */
+.Subtitle--4 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+/*? footer */
+/* Title 1 Medium(footer) */
+.titleFooter--1 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+}
+/* Subtitle 1 Regular(footer) */
+.Subtitle--1--footer {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+/* Subtitle 2 Medium(footer)  */
+.Subtitle--2--footer {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+}
+/* Subtitle 3 Medium(footer) */
+.Subtitle--3--footer {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+}
+.divider{
+  border: 1px solid #D7D7D7;
+  width: 100%;
+}
