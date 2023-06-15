@@ -3,6 +3,7 @@ import scss from './Header.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './assets/Logo.svg';
+import Button from './../Button/Button';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -57,10 +58,9 @@ const Header: React.FC = () => {
           </Link>
         ))}
       </nav>
-      <button style={{ marginLeft: 'auto' }} className={scss['header__loginButton']}>
-        login
-      </button>
-      {/* TODO: create button Global */}
+      <Button variant={'primary'} style={{ marginLeft: 'auto' }}>
+        <p>{t(`${translationPath}login`)}</p>
+      </Button>
     </header>
   );
 };
