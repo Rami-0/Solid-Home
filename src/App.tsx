@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './global.css';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './Pages/HomePage/HomePage';
 
@@ -8,6 +9,11 @@ const App: React.FC = () => {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/Rent" element={<HomePage />} />
+        <Route path="/Purchase" element={''} />
+        <Route path="/Sale" element={''} />
+        <Route path="/Realtors" element={''} />
+        <Route path="/Developers" element={''} />
         <Route path="*" element={''} />
       </Routes>
     </div>
