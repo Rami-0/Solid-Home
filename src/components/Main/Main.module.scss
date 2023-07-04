@@ -1,0 +1,58 @@
+.main{
+  height: fit-content;
+  height: 450px;
+  .background_image{
+    position: absolute;
+    width: 100%;
+  }
+  .main_container{
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h1{
+      font-family: Montserrat;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 46px;
+      color: var(--bg-pr);
+      margin-bottom: 2%;
+    }
+    .search_block{
+      form{
+        display: flex;
+        justify-content: flex-end;
+        background-color: var(--bg-pr);
+        height: 55px;
+        width: 496px;
+        border-radius: 3px;
+        input{
+          border: none;
+          width: 340px;
+          outline: none;
+          height: 55px;
+        }
+        input::placeholder{
+          font-family: Montserrat;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 20px;
+          color: #C3C3C3;
+        }
+        span{
+          padding-right: 1%;
+          .glas{
+            margin-top: 80%;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1500px) {
+  .main{
+    height: 400px;
+  }
+}

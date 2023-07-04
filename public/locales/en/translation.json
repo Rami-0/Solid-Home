@@ -6,5 +6,10 @@
     "Realtors": "Realtors",
     "Developers": "Developers",
     "login": "Login"
+  },
+  "Main": {
+    "Best":"The best property for you",
+    "Search": "Search",
+    "Adress": "Address, district, city or RC"
   }
 }
