@@ -4,8 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './assets/Logo.svg';
 import Button from './../Button/Button';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
-const Header: React.FC = () => {
+interface Iprops {
+  AuthHeader?: boolean;
+  style?: React.CSSProperties | undefined;
+}
+
+const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
   const { t } = useTranslation();
   const translationPath = 'Header.';
   const { pathname } = useLocation();
@@ -32,6 +39,8 @@ const Header: React.FC = () => {
     }
   ];
   const [currnetPage, setCurrentPage] = useState<string>();
+  const navigate = useNavigate();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     if (pathname === '/') {
@@ -40,27 +49,43 @@ const Header: React.FC = () => {
       setCurrentPage(pathname.split('/')[1]);
     }
   }, [pathname]);
+
   return (
-    <header className={scss['header']}>
+    <header className={scss['header']} style={style}>
       <span className={scss['header__logo']}>
         <img src={Logo} alt="Logo" />
       </span>
-      <hr />
-      <nav className={scss['header__nav']}>
-        {nav_links.map(({ path, title }, index) => (
-          <Link
-            className={
-              path === currnetPage ? scss['header__nav__item--active'] : scss['header__nav__item']
-            }
-            to={path}
-            key={index}>
-            <p className="Headline">{title}</p>
-          </Link>
-        ))}
-      </nav>
-      <Button variant={'primary'} style={{ marginLeft: 'auto' }}>
-        <p>{t(`${translationPath}login`)}</p>
-      </Button>
+      {!AuthHeader ? (
+        <>
+          <hr />
+          <nav className={scss['header__nav']}>
+            {nav_links.map(({ path, title }, index) => (
+              <Link
+                className={
+                  path === currnetPage
+                    ? scss['header__nav__item--active']
+                    : scss['header__nav__item']
+                }
+                to={path}
+                key={index}>
+                <p className="Headline">{title}</p>
+              </Link>
+            ))}
+          </nav>
+          {isAuthenticated ? (
+            ''
+          ) : (
+            <Button
+              variant={'primary'}
+              style={{ marginLeft: 'auto' }}
+              onClick={() => navigate('/login')}>
+              <p>{t(`${translationPath}login`)}</p>
+            </Button>
+          )}
+        </>
+      ) : (
+        ''
+      )}
     </header>
   );
 };

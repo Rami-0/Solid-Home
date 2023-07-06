@@ -1,0 +1,55 @@
+.formInput {
+  display: flex;
+  flex-direction: column;
+  width: 386px;
+
+
+  input {
+    outline: none;
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 3px;
+    border: 0.621px solid var(--sec-text);
+    height: 55px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+  }
+  input::placeholder {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+  }
+  input:focus{
+    border: 1px solid var(--blue) ;
+  }
+  label {
+    font-size: 12px;
+    color: gray;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 11px;
+    color: var(--sec-text);
+  }
+
+  span {
+    display: none;
+    color: var(--sec-text);
+    color: red;
+    padding-bottom: 10px;
+  }
+
+  input:invalid[focused='true'] {
+    border: 1px solid red;
+  }
+
+  input:invalid[focused='true'] ~ span {
+    display: block;
+  }
+}

@@ -1,0 +1,22 @@
+.inputWrapper {
+  #{&}__lable {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 11px;
+    margin-bottom: 6px;
+    color: var(--sec-text);
+  }
+  #{&}__input {
+    width: 386px;
+    height: 55px;
+    *::placeholder {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 18px;
+    }
+  }
+}

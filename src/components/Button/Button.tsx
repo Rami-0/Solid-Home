@@ -3,9 +3,9 @@ import scss from './Button.module.scss';
 
 interface props {
   children: any;
-  variant: string;
+  variant: 'primary' | 'secondary' | 'noBorder';
   onClick?: undefined | any;
-  style?: object;
+  style?: React.CSSProperties;
 }
 
 // variants : primary - secondary - noBorder
