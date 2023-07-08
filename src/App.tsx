@@ -4,6 +4,7 @@ import './global.css';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './Pages/HomePage/HomePage';
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/Developers" element={''} />
         <Route path="*" element={''} />
       </Routes>
+      <Footer />
     </div>
   );
 };

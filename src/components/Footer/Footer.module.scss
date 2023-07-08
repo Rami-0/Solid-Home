@@ -1,0 +1,70 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding-top: 95px !important;
+
+  .footer__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+
+    .footer__main__wrapper--1 {
+      width: 400px;
+      margin-right: 100px;
+      flex: 1 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .footer__main__wrapper--1--description {
+        img {
+          margin-bottom: 20px;
+        }
+        p {
+          color: var(--sec-text);
+        }
+      }
+      .footer__main__wrapper--1--storeBadgets {
+        display: flex;
+        gap: 20px;
+        a {
+          transition: 0.3s;
+        }
+        a:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .footer__main__wrapper--2 {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .footer__main__wrapper--2--title {
+        color: var(--pr-text);
+      }
+      .footer__main__wrapper--2--links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .link {
+          cursor: pointer;
+          transition: 0.3s;
+        }
+        .link:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+  .footer__creds {
+    height: 39px;
+    display: flex;
+    text-align: start;
+    align-items: center;
+    border-top: 1px solid var(--color-1);
+    color: var(--pr-text);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
