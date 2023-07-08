@@ -1,0 +1,10 @@
+{
+  "Header": {
+    "Rent": "Rent",
+    "Purchase": "Purchase",
+    "Sale": "Sale",
+    "Realtors": "Realtors",
+    "Developers": "Developers",
+    "login": "Login"
+  }
+}

@@ -5,7 +5,7 @@ import main from './assets/main.jpg';
 import { useTranslation } from 'react-i18next';
 
 const Main: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['Main']);
   const placeholderText = t('Main.Adress');
   const handleSubmit = (e: any) => {
     e.preventDefault();

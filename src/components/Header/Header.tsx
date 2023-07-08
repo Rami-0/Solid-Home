@@ -6,7 +6,7 @@ import Logo from './assets/Logo.svg';
 import Button from './../Button/Button';
 
 const Header: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['Header']);
   const translationPath = 'Header.';
   const { pathname } = useLocation();
   const nav_links = [
