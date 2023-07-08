@@ -6,6 +6,8 @@ import { store } from './redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import './i18n';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
