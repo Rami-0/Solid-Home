@@ -1,8 +1,8 @@
 export interface Cards {
-  company: String;
-  info: String;
-  date: String;
-  title: String;
-  cash: String;
+  company: string;
+  info: string;
+  date: string;
+  title: string;
+  cash: string;
   logo: any;
 }
