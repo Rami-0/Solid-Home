@@ -6,6 +6,7 @@ import Button from './../../../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLoginButton } from '../../../../components/GoogleButtons/GoogleButtons';
 import { gapi } from 'gapi-script';
+import FormInput from './../FormInput/FormInput';
 
 const LoginForm: React.FC = () => {
   const [name, setName] = useState('');
@@ -28,6 +29,8 @@ const LoginForm: React.FC = () => {
     }
     gapi.load('client:auth2', start);
   });
+
+  const inputs = {};
 
   return (
     <div className={scss['formWrapper']}>

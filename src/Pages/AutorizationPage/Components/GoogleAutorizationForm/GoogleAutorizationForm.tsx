@@ -1,14 +1,13 @@
-import React from 'react';
-import scss from './RegisterForm.module.scss';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { useNavigate } from 'react-router-dom';
+import { SetUser } from '../../../../redux/Slices/authSlice';
+import scss from './GoogleAutorizationForm.module.scss';
 import FormInput from '../FormInput/FormInput';
 import Button from '../../../../components/Button/Button';
-import { GoogleLoginButton } from '../../../../components/GoogleButtons/GoogleButtons';
-import { useAppDispatch } from '../../../../hooks/useAppDispatch';
-import { SetUser } from '../../../../redux/Slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import googleLogo from './Google-logo.svg';
 
-const RegisterForm: React.FC = () => {
+const GoogleAutorizationForm = () => {
   const [values, setValues] = useState({
     username: '',
     lastName: '',
@@ -23,10 +22,10 @@ const RegisterForm: React.FC = () => {
       id: '1',
       name: 'username',
       type: 'text',
-      placeholder: 'Username',
+      placeholder: 'Иван',
       errorMessage:
         "Username should be 3-16 characters and shouldn't include any special character!",
-      label: 'Username',
+      label: 'Имя',
       pattern: '^[A-Za-z0-9]{3,16}$',
       required: true
     },
@@ -45,42 +44,13 @@ const RegisterForm: React.FC = () => {
       id: '3',
       name: 'email',
       type: 'email',
-      placeholder: 'Email',
+      placeholder: 'ivanivanov@gmail.com',
       errorMessage: 'It should be a valid email address!',
-      label: 'Email',
-      required: true
-    },
-    {
-      id: '4',
-      name: 'tel',
-      type: 'tel',
-      placeholder: '+996',
-      label: 'Номер телефона',
-      pattern: '^0[0-9]{3}[0-9]{3}[0-9]{3}$',
-      errorMessage: 'invalid Number!',
+      label: 'E-mail',
       required: true
     }
-    // {
-    //   id: 4,
-    //   name: 'password',
-    //   type: 'text',
-    //   placeholder: 'Password',
-    //   errorMessage:
-    //     'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
-    //   label: 'Password',
-    //   pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-    //   required: true
-    // },
-    // {
-    //   id: 5,
-    //   name: 'confirmPassword',
-    //   type: 'text',
-    //   placeholder: 'Confirm Password',
-    //   errorMessage: "Passwords don't match!",
-    //   label: 'Confirm Password',
-    //   required: true
-    // }
   ];
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -97,7 +67,8 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className={scss['formWrapper']}>
-      <h1 className={scss['formWrapper--title']}>Регистрация</h1>
+      <img src={googleLogo} alt="googleLogo" />
+      <h1 className={scss['formWrapper--title']}>Подтвердите свои данные</h1>
       <form onSubmit={submitHandler}>
         {inputs.map((input, index) => (
           <FormInput key={index} {...input} onChange={onChange} />
@@ -105,14 +76,12 @@ const RegisterForm: React.FC = () => {
         <Button variant={'primary'} style={{ height: 55 }} type={'submit'}>
           <p className="Button--2">Далее</p>
         </Button>
-        <GoogleLoginButton />
         <p className={scss['links'] + ' Subtitle--4'}>
-          У вас уже есть учетная запись?
-          <a onClick={() => navigate('/login')}>Войти</a>
+          <a onClick={() => navigate(-1)}>Вернуться назад</a>
         </p>
       </form>
     </div>
   );
 };
 
-export default RegisterForm;
+export default GoogleAutorizationForm;

@@ -9,7 +9,9 @@ import AutorizationLayout from './Layouts/AutorizationLayout';
 import AutorizationPage from './Pages/AutorizationPage/AutorizationPage';
 import OTP_Form from './Pages/AutorizationPage/Components/OTP_Form/OTP_Form';
 import LoginForm from './Pages/AutorizationPage/Components/LoginForm/LoginForm';
-import RegisterForm from './Pages/AutorizationPage/RegisterForm/RegisterForm';
+import RegisterForm from './Pages/AutorizationPage/Components/RegisterForm/RegisterForm';
+import PasswordAuthorizationForm from './Pages/AutorizationPage/Components/PasswordAutorizationForm/PasswordAuthorizationForm';
+import GoogleAutorizationForm from './Pages/AutorizationPage/Components/GoogleAutorizationForm/GoogleAutorizationForm';
 
 const App: React.FC = () => {
   return (
@@ -28,6 +30,8 @@ const App: React.FC = () => {
         <Route path="/" element={<AutorizationLayout />}>
           <Route path="/login" element={<LoginForm />} />
           <Route path="OTP" element={<OTP_Form />} />
+          <Route path="gof" element={<GoogleAutorizationForm />} />
+          <Route path="PASS" element={<PasswordAuthorizationForm />} />
           <Route path="/register" element={<RegisterForm />} />
         </Route>
         <Route path="*" element={'404'} />

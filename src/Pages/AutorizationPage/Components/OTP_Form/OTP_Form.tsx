@@ -3,10 +3,12 @@ import scss from './OTP.module.scss';
 import Button from './../../../../components/Button/Button';
 import { RE_DIGIT } from '../../../../constants/constants';
 import useAuth from '../../../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const OTP_Form = () => {
   const [otp, setOtp] = useState('');
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const onChange = (value: string) => setOtp(value);
   const valueLength = 4;
@@ -133,6 +135,9 @@ const OTP_Form = () => {
       <Button variant="secondary" onClick={handleResend} style={{ height: 55 }}>
         <p className="Button--2">Отправить повторно</p>
       </Button>
+      <p className={scss['links'] + ' Subtitle--4'}>
+        <a onClick={() => navigate(-1)}>Вернуться назад</a>
+      </p>
     </form>
   );
 };

@@ -36,5 +36,12 @@
       outline: none;
     }
   }
-  
+  .links {
+    color: var(--sec-text);
+    align-self: flex-start;
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }

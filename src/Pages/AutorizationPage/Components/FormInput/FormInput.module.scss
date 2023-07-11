@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 386px;
 
-
   input {
     outline: none;
     padding: 15px;
@@ -16,7 +15,11 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
+    border: 1px solid rgba(144, 144, 144, 0.87);
+    border-radius: 5px;
   }
+  input:hover{ 
+    border: 1px solid rgba(0, 0, 0, 0.821);  }
   input::placeholder {
     font-family: 'Montserrat';
     font-style: normal;
@@ -24,8 +27,8 @@
     font-size: 15px;
     line-height: 18px;
   }
-  input:focus{
-    border: 1px solid var(--blue) ;
+  input:focus {
+    border: 1px solid var(--blue);
   }
   label {
     font-size: 12px;
@@ -49,7 +52,27 @@
     border: 1px solid red;
   }
 
+  .Confirmed {
+    border: 1px solid green;
+  }
+  .Confirmed ~ span {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: green;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   input:invalid[focused='true'] ~ span {
-    display: block;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
