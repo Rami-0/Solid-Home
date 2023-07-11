@@ -19,6 +19,26 @@
     color: #fff;
   }
 }
+.button--search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 33px;
+  gap: 10px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background: var(--blue);
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+}
 .button--secondary {
   display: flex;
   flex-direction: row;

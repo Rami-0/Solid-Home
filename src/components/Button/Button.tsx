@@ -3,7 +3,7 @@ import scss from './Button.module.scss';
 
 interface props {
   children: any;
-  variant: 'primary' | 'secondary' | 'noBorder';
+  variant: 'primary' | 'secondary' | 'noBorder' | 'search';
   onClick?: undefined | any;
   style?: React.CSSProperties;
   type?: 'button' | 'submit' | 'reset' | undefined;

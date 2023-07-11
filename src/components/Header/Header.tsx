@@ -13,7 +13,7 @@ interface Iprops {
 }
 
 const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['Header']);
   const translationPath = 'Header.';
   const { pathname } = useLocation();
   const nav_links = [

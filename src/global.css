@@ -11,6 +11,10 @@
   --color-3: #f3f3f3;
 }
 
+.container{
+  padding: 40px 6.12%;
+}
+
 /* Title 1 Semibold */
 h1 {
   font-family: 'Montserrat';
