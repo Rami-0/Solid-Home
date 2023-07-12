@@ -14,8 +14,9 @@ const Main: React.FC = () => {
 
   return (
     <div className={scss['main']}>
-      <img className={scss['background_image']} src={main} alt="" />
-      <div className={scss['main_container']}>
+      <div
+        className={scss['main_container']}
+        style={{ background: `url(${main}) center/cover no-repeat` }}>
         <h1>{t('Main.Best')}</h1>
         <div className={scss['search_block']}>
           <form>
