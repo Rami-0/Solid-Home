@@ -1,21 +1,21 @@
 import scss from './DiscountCard.module.scss';
 import { Cards } from '../types/types';
+import React from 'react';
 
-type Props = Cards;
-const DiscountCard: React.FC<Props> = (props: Props) => {
+const DiscountCard: React.FC<Cards> = ({ company, info, date, title, logo, cash }) => {
   return (
     <div className={scss['card']}>
       <div className={scss['about_block']}>
-        <p>{props.company}</p>
-        <h4>{props.info}</h4>
-        <h5>{props.date}</h5>
-        <p>{props.title}</p>
+        <p>{company}</p>
+        <h4>{info}</h4>
+        <h5>{date}</h5>
+        <p>{title}</p>
       </div>
       <div className={scss['logo_block']}>
         <div>
-          <img src={props.logo} alt="avangard logo" />
+          <img src={logo} alt="avangard logo" />
         </div>
-        <p>{props.cash}</p>
+        <p>{cash}</p>
       </div>
     </div>
   );

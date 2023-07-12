@@ -6,3 +6,11 @@ export interface Cards {
   cash: String;
   logo: any;
 }
+
+export interface BuildingsCard {
+  logo: any;
+  house: any;
+  companyName: string;
+  description: string;
+  pathCompany: string;
+}
