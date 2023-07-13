@@ -1,0 +1,47 @@
+.servise{
+  background-color: #F9F9FB;
+  .servise_content{
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+    .content{
+      background-color: #fff;
+      height: fit-content;
+      width: 31%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .about_content{
+        padding: 2% 5% 5% 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+        h2{
+          color: var(--blue);
+        }
+        p{
+          font-family: Montserrat;
+          font-size: 17px;
+          font-weight: 400;
+          line-height: 23px;
+          color: var(--pr-text);
+        }
+        a{
+          font-family: Montserrat;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 17px;
+          color: var(--blue);
+          text-decoration: none;
+          border: 2px solid var(--blue);
+          padding: 13px 30px;
+        }
+      }
+    }
+    .content:nth-child(2) img{
+      height: 172px;
+    }
+  }
+}

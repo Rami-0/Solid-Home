@@ -14,3 +14,9 @@ export interface BuildingsCard {
   description: string;
   pathCompany: string;
 }
+
+export interface RealtorsData {
+  avatar: any;
+  fullName: string;
+  experience: string;
+}

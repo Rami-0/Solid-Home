@@ -1,0 +1,16 @@
+.realtor_container{
+  display: flex;
+  box-shadow: 0px 0px 4px 0px #00000026;
+  border-radius: 3px;
+  align-items: center;
+  .data_realtor{
+    margin-left: 4%;
+    p{
+      font-family: Montserrat;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 15px;
+      color: #575656;
+    }
+  }
+}
