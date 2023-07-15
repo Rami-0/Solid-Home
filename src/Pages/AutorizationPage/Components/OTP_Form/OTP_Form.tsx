@@ -1,14 +1,23 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import scss from './OTP.module.scss';
 import Button from './../../../../components/Button/Button';
-import { RE_DIGIT } from '../../../../constants/constants';
+import { RE_DIGIT } from '../../../../constants/RegExp';
 import useAuth from '../../../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { multi_stepFormProps } from '../../../../types/multiFormProps';
+import { useTranslation } from 'react-i18next';
 
-const OTP_Form = () => {
+interface OTPprops extends multi_stepFormProps {
+  isReturnPass?: boolean;
+  isDirect?: boolean;
+}
+
+const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDirect }) => {
+  const { t } = useTranslation(['OTP']);
+  const translationPath = 'Otp.';
+
   const [otp, setOtp] = useState('');
   const { user } = useAuth();
-  const navigate = useNavigate();
+  console.log(user);
 
   const onChange = (value: string) => setOtp(value);
   const valueLength = 4;
@@ -72,8 +81,23 @@ const OTP_Form = () => {
 
   const [sendTo, setSendTo] = useState({
     name: 'Number',
-    value: user?.number
+    value: user?.phone_number
   });
+
+  useEffect(() => {
+    if (user?.phone_number === '' || user?.phone_number === undefined) {
+      setSendTo({
+        name: 'Email',
+        value: user?.email
+      });
+    } else {
+      setSendTo({
+        name: 'Number',
+        value: user?.phone_number
+      });
+    }
+  }, []);
+  console.log(sendTo);
 
   const handleSendToEmail = () => {
     setSendTo({
@@ -88,6 +112,7 @@ const OTP_Form = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    nextPage ? nextPage() : '';
     //TODO : function
   };
 
@@ -96,20 +121,37 @@ const OTP_Form = () => {
   const renderTop =
     sendTo.name != 'Email' ? (
       <p className="Subtitle--4">
-        Код по умолчанию отправлен Вам на: {sendTo.value}{' '}
+        {t(`${translationPath}top.1-1`)}
+        {sendTo.value + '\n'}
         <a href="#" onClick={handleSendToEmail}>
-          Отправить на e-mail?
+          {t(`${translationPath}top.1-2`)}
         </a>
       </p>
     ) : (
-      <p className="Subtitle--4">Код отправлен Вам на: {sendTo.value}</p>
+      <p className="Subtitle--4">
+        {t(`${translationPath}top.1-3`)} {sendTo.value}
+      </p>
     );
+
+  const renderTopToReturnPass = (
+    <p className="Subtitle--4">
+      {t(`${translationPath}top.2-1`)}
+      {sendTo.value}
+    </p>
+  );
+  const renderTopDirect = (
+    <p className="Subtitle--4">
+      {t(`${translationPath}top.3-1`)} {sendTo.value}
+    </p>
+  );
 
   return (
     <form className={scss['form']}>
       <div className={scss['form__top']}>
-        <h1 style={{ color: 'var(--blue)' }}>Введите 4-значный код</h1>
-        {renderTop}
+        <h1 style={{ color: 'var(--blue)' }}>
+          {isReturnPass ? t(`${translationPath}enter-forgot`) : t(`${translationPath}enter`)}
+        </h1>
+        {isReturnPass ? renderTopToReturnPass : isDirect ? renderTopDirect : renderTop}
       </div>
       <span className={scss['form__inputs']}>
         {valueItems.map((digit, idx) => (
@@ -130,13 +172,13 @@ const OTP_Form = () => {
         ))}
       </span>
       <Button variant="primary" onClick={handleSubmit} style={{ height: 55 }}>
-        <p className="Button--2">Далее</p>
+        <p className="Button--2">{t(`${translationPath}next`)}</p>
       </Button>
       <Button variant="secondary" onClick={handleResend} style={{ height: 55 }}>
-        <p className="Button--2">Отправить повторно</p>
+        <p className="Button--2">{t(`${translationPath}sendAgain`)}</p>
       </Button>
       <p className={scss['links'] + ' Subtitle--4'}>
-        <a onClick={() => navigate(-1)}>Вернуться назад</a>
+        <a onClick={prevPage}>{t(`${translationPath}back`)}</a>
       </p>
     </form>
   );

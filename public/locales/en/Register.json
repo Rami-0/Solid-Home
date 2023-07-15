@@ -1,0 +1,31 @@
+{
+  "Register": {
+    "register": "Registration",
+    "next": "Next",
+    "google": "Signup with google",
+    "uHaveAcc": "Do you already have an account?",
+    "login": "Login"
+  },
+  "inputs": {
+    "first_name": {
+      "placeholder": "Ivan",
+      "errorMessage": "Username should be 3-16 characters and shouldn't include any special character!",
+      "label": "Username"
+    },
+    "last_name": {
+      "placeholder": "Ivanov",
+      "label": "Lastname",
+      "errorMessage": "Lastname should be 3-16 characters and shouldn't include any special character!"
+    },
+    "email": {
+      "placeholder": "ivan@example.com",
+      "errorMessage": "It should be a valid email address!",
+      "label": "Email"
+    },
+    "phone_number": {
+      "placeholder": "+996",
+      "label": "Phone number",
+      "errorMessage": "invalid Number!"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "Login": {
+    "login": "Войти",
+    "forgot": "Я не помню свой пароль",
+    "next": "Далее",
+    "dontHave": "Еще нет учетной записи?",
+    "registerRN": "Зарегистрируйся прямо сейчас!",
+    "google": "Войти с Google"
+  },
+  "ReturnYourPassword": {
+    "title": "Верните свой пароль",
+    "next": "Далее",
+    "inputLable": "Номер телефона или e-mail:",
+    "dontHave": "Еще нет учетной записи?",
+    "registerRN": "Зарегистрируйся прямо сейчас!"
+  },
+  "inputs": {
+    "username": "Номер телефона или e-mail:",
+    "placeholder": "Номер телефона или e-mail",
+    "password": "Пароль"
+  }
+}

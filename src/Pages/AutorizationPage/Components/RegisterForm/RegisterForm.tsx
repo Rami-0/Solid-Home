@@ -7,87 +7,29 @@ import { GoogleLoginButton } from '../../../../components/GoogleButtons/GoogleBu
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { SetUser } from '../../../../redux/Slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { multi_stepFormProps } from '../../../../types/multiFormProps';
+import { RegisterInputs } from '../../../../constants/RegisterInputs';
+import { useTranslation } from 'react-i18next';
+import useAuth from './../../../../hooks/useAuth';
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
+  const { t } = useTranslation(['Register']);
+  const translationPath = 'Register.';
+
   const [values, setValues] = useState({
-    username: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    tel: ''
-    // password: '',
-    // confirmPassword: ''
+    phone_number: '+996'
   });
 
-  const inputs = [
-    {
-      id: '1',
-      name: 'username',
-      type: 'text',
-      placeholder: 'Username',
-      errorMessage:
-        "Username should be 3-16 characters and shouldn't include any special character!",
-      label: 'Username',
-      pattern: '^[A-Za-z0-9]{3,16}$',
-      required: true
-    },
-    {
-      id: '2',
-      name: 'lastName',
-      type: 'text',
-      placeholder: 'Иванов',
-      label: 'Фамилия',
-      errorMessage:
-        "Lastname should be 3-16 characters and shouldn't include any special character!",
-      pattern: '^[A-Za-z0-9]{3,16}$',
-      required: true
-    },
-    {
-      id: '3',
-      name: 'email',
-      type: 'email',
-      placeholder: 'Email',
-      errorMessage: 'It should be a valid email address!',
-      label: 'Email',
-      required: true
-    },
-    {
-      id: '4',
-      name: 'tel',
-      type: 'tel',
-      placeholder: '+996',
-      label: 'Номер телефона',
-      pattern: '^0[0-9]{3}[0-9]{3}[0-9]{3}$',
-      errorMessage: 'invalid Number!',
-      required: true
-    }
-    // {
-    //   id: 4,
-    //   name: 'password',
-    //   type: 'text',
-    //   placeholder: 'Password',
-    //   errorMessage:
-    //     'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
-    //   label: 'Password',
-    //   pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-    //   required: true
-    // },
-    // {
-    //   id: 5,
-    //   name: 'confirmPassword',
-    //   type: 'text',
-    //   placeholder: 'Confirm Password',
-    //   errorMessage: "Passwords don't match!",
-    //   label: 'Confirm Password',
-    //   required: true
-    // }
-  ];
-  const dispatch = useAppDispatch();
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(SetUser(values));
-    navigate('/otp');
+    nextPage ? nextPage() : '';
+    setUser(values);
     console.log(values);
   };
 
@@ -97,18 +39,26 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className={scss['formWrapper']}>
-      <h1 className={scss['formWrapper--title']}>Регистрация</h1>
+      <h1 className={scss['formWrapper--title']}>{t(`${translationPath}register`)}</h1>
       <form onSubmit={submitHandler}>
-        {inputs.map((input, index) => (
-          <FormInput key={index} {...input} onChange={onChange} />
+        {RegisterInputs.map((input, index) => (
+          <FormInput
+            {...input}
+            key={index}
+            label={t(`inputs.${input.name}.label`)}
+            placeholder={t(`inputs.${input.name}.placeholder`)}
+            errorMessage={t(`inputs.${input.name}.errorMessage`)}
+            value={values[input.name as keyof typeof values]}
+            onChange={onChange}
+          />
         ))}
         <Button variant={'primary'} style={{ height: 55 }} type={'submit'}>
-          <p className="Button--2">Далее</p>
+          <p className="Button--2">{t(`${translationPath}next`)}</p>
         </Button>
-        <GoogleLoginButton />
+        <GoogleLoginButton text={t(`${translationPath}google`)} />
         <p className={scss['links'] + ' Subtitle--4'}>
-          У вас уже есть учетная запись?
-          <a onClick={() => navigate('/login')}>Войти</a>
+          {t(`${translationPath}uHaveAcc`)}
+          <a onClick={() => navigate('/login')}>{t(`${translationPath}login`)}</a>
         </p>
       </form>
     </div>

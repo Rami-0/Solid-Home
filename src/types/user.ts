@@ -1,7 +1,11 @@
 export interface Iuser {
-  name: string;
-  lastname: string;
-  role: number;
+  first_name: string;
+  last_name: string;
   email: string;
-  number: string;
+  phone_number: string;
+}
+export interface IuserCreds {
+  email?: string;
+  phone_number?: string;
+  password: string;
 }

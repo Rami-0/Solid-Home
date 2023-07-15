@@ -6,7 +6,8 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
 import { SetUser } from '../../../../redux/Slices/authSlice';
 import Button from '../../../../components/Button/Button';
-const PasswordAuthorizationForm: React.FC = () => {
+import { multi_stepFormProps } from '../../../../types/multiFormProps';
+const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) => {
   const { user } = useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const PasswordAuthorizationForm: React.FC = () => {
           <p className="Button--2">Далее</p>
         </Button>
         <p className={scss['links'] + ' Subtitle--4'}>
-          <a onClick={() => navigate(-1)}>Вернуться назад</a>
+          <a onClick={prevPage}>Вернуться назад</a>
         </p>
       </form>
     </div>

@@ -1,5 +1,5 @@
 import scss from './DiscountCard.module.scss';
-import { Cards } from '../types/types';
+import { Cards } from '../../types/types';
 
 type Props = Cards;
 const DiscountCard: React.FC<Props> = (props: Props) => {

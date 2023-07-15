@@ -1,0 +1,31 @@
+{
+  "Register": {
+    "register": "Registration",
+    "next": "Далее",
+    "google": "Зарегистрироваться через Google",
+    "uHaveAcc": "У вас уже есть учетная запись?",
+    "login": "Войти"
+  },
+  "inputs": {
+    "first_name": {
+      "placeholder": "Иван",
+      "errorMessage": "Имя пользователя должно содержать от 3 до 16 символов и не должно содержать никаких специальных символов!",
+      "label": "Имя"
+    },
+    "last_name": {
+      "placeholder": "Иванов",
+      "label": "Фамилия",
+      "errorMessage": "Фамилия должна содержать от 3 до 16 символов и не должна содержать никаких специальных символов!"
+    },
+    "email": {
+      "placeholder": "ivan@example.com",
+      "errorMessage": "Это должен быть действительный адрес электронной почты!",
+      "label": "Email"
+    },
+    "phone_number": {
+      "placeholder": "+996",
+      "label": "Номер телефона",
+      "errorMessage": "Неверный номер!"
+    }
+  }
+}

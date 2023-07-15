@@ -4,7 +4,7 @@ import scss from './InputMui.module.scss';
 
 interface Iprops {
   id: string;
-  label?: string | undefined;
+  label?: any | undefined;
   placeholder: string;
   value: any;
   setValue: any;

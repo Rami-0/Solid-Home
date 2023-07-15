@@ -1,4 +1,4 @@
-import { Cards } from '../components/types/types';
+import { Cards } from '../types/types';
 import avangard from '../components/DiscountSlider/assets/Avangard Logo.svg';
 import ihlas from '../components/DiscountSlider/assets/Ihlas.svg';
 import elite from '../components/DiscountSlider/assets/elite.svg';
