@@ -3,8 +3,10 @@ export interface Iuser {
   last_name: string;
   email: string;
   phone_number: string;
+  accessToken?: string;
 }
-export interface IuserCreds {
+
+export interface loginCreds {
   email?: string;
   phone_number?: string;
   password: string;

@@ -16,8 +16,7 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
   const translationPath = 'Otp.';
 
   const [otp, setOtp] = useState('');
-  const { user } = useAuth();
-  console.log(user);
+  const { auth } = useAuth();
 
   const onChange = (value: string) => setOtp(value);
   const valueLength = 4;
@@ -81,19 +80,19 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
 
   const [sendTo, setSendTo] = useState({
     name: 'Number',
-    value: user?.phone_number
+    value: auth?.phone_number
   });
 
   useEffect(() => {
-    if (user?.phone_number === '' || user?.phone_number === undefined) {
+    if (auth?.phone_number === '' || auth?.phone_number === undefined) {
       setSendTo({
         name: 'Email',
-        value: user?.email
+        value: auth?.email
       });
     } else {
       setSendTo({
         name: 'Number',
-        value: user?.phone_number
+        value: auth?.phone_number
       });
     }
   }, []);
@@ -102,7 +101,7 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
   const handleSendToEmail = () => {
     setSendTo({
       name: 'Email',
-      value: user?.email
+      value: auth?.email
     });
   };
 

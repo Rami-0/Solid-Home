@@ -40,7 +40,7 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
   ];
   const [currnetPage, setCurrentPage] = useState<string>();
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, auth } = useAuth();
 
   useEffect(() => {
     if (pathname === '/') {

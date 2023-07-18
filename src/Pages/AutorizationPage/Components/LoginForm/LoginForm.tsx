@@ -10,7 +10,9 @@ import { multi_stepFormProps } from '../../../../types/multiFormProps';
 import { useTranslation } from 'react-i18next';
 import { emailPattern, phonePattern } from '../../../../constants/RegExp';
 import useAuth from './../../../../hooks/useAuth';
-import { IuserCreds } from '../../../../types/user';
+import { loginCreds } from '../../../../types/user';
+import { fetchLogin } from '../../../../redux/Slices/authSlice';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 
 interface LoginFormProps extends multi_stepFormProps {
   requsetNewPass?: any;
@@ -22,13 +24,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
   const translationPath = 'Login.';
   const inputsTranslationPath = 'inputs.';
 
-  const { user, setUser } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [inputError, setInputError] = useState<boolean>();
 
-  let data: IuserCreds;
+  let data: loginCreds;
 
   function checkInput(input: string) {
     if (emailPattern.test(input)) {
@@ -54,9 +56,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
     }
   }
 
+  const dispatch = useAppDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
-    setUser(data);
+    // setUser(data);
+    dispatch(
+      fetchLogin({
+        email: userName,
+        phone_number: userName,
+        password: password
+      })
+    );
     nextPage ? nextPage() : '';
     // TODO : Add code here
   };
@@ -72,7 +82,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
     // }
     // gapi.load('client:auth2', start);
     checkInput(userName);
-  }, [userName]);
+  });
   console.log(inputError);
 
   const handleReturnPassword = (e: any) => {

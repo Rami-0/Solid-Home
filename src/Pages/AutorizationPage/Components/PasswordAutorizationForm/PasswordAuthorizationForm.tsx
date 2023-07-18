@@ -8,7 +8,7 @@ import { SetUser } from '../../../../redux/Slices/authSlice';
 import Button from '../../../../components/Button/Button';
 import { multi_stepFormProps } from '../../../../types/multiFormProps';
 const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) => {
-  const { user } = useAuth();
+  const { auth } = useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
