@@ -1,6 +1,6 @@
 import React from 'react';
 import scss from './RealtorCard.module.scss';
-import { RealtorsData } from '../types/types';
+import { RealtorsData } from '../../types/types';
 
 const RealtorCard: React.FC<RealtorsData> = ({ avatar, fullName, experience }) => {
   return (

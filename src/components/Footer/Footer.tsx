@@ -3,7 +3,7 @@ import scss from './Footer.module.scss';
 import logo__blue from '../../assets/Logo--blue.svg';
 import app_store from './assets/app-store-badge.png';
 import google_play from './assets/google-play-badge.png';
-import { APPSTORE_LINK, PLAYSTORE_LINK } from '../../constant/App_Links';
+import { APPSTORE_LINK, PLAYSTORE_LINK } from '../../constants/App_Links';
 
 const Footer: React.FC = () => {
   const rent_items = [

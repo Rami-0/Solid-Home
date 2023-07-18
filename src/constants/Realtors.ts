@@ -1,4 +1,4 @@
-import { RealtorsData } from '../components/types/types';
+import { RealtorsData } from '../types/types';
 import olga from '../components/Realtors/assets/olga.svg';
 import damir from '../components/Realtors/assets/damir.svg';
 import maks from '../components/Realtors/assets/maks.svg';

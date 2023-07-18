@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BuildingsCard } from '../types/types';
+import { BuildingsCard } from '../../types/types';
 import scss from './BuildingCard.module.scss';
 import { useTranslation } from 'react-i18next';
 

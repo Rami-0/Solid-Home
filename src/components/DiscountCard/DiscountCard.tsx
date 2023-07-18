@@ -1,6 +1,6 @@
-import scss from './DiscountCard.module.scss';
-import { Cards } from '../types/types';
 import React from 'react';
+import scss from './DiscountCard.module.scss';
+import { Cards } from '../../types/types';
 
 const DiscountCard: React.FC<Cards> = ({ company, info, date, title, logo, cash }) => {
   return (

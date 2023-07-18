@@ -1,0 +1,20 @@
+{
+  "Otp": {
+    "next": "Next",
+    "sendAgain": "Resend",
+    "back": "Go back",
+
+    "enter": "Enter 4 digit code",
+    "enter-forgot": "If you forgot your password, create a new one",
+
+    "top": {
+      "1-1": "By default code sent to you on:",
+      "1-2": "Send to e-mail?",
+      "1-3": "Code sent to you on:",
+
+      "2-1": "You will be able to change your password after you enter the 4 digit code sent to you at:",
+
+      "3-1": "Enter the 4-digit code that was sent to you on:"
+    }
+  }
+}

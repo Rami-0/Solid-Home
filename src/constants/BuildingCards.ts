@@ -1,4 +1,4 @@
-import { BuildingsCard } from '../components/types/types';
+import { BuildingsCard } from '../types/types';
 import primex from '../components/DiscountSlider/assets/primex.svg';
 import star from '../components/DiscountSlider/assets/starforge.svg';
 import terra from '../components/DiscountSlider/assets/terraguard.svg';
