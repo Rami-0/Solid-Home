@@ -6,3 +6,17 @@ export interface Cards {
   cash: string;
   logo: any;
 }
+
+export interface BuildingsCard {
+  logo: any;
+  house: any;
+  companyName: string;
+  description: string;
+  pathCompany: string;
+}
+
+export interface RealtorsData {
+  avatar: any;
+  fullName: string;
+  experience: string;
+}

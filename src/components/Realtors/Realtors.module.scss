@@ -1,0 +1,36 @@
+.realtors{
+  padding-bottom: 30px;
+  .container{
+    width: 88%;
+    margin: 0 auto;
+    .header_realtors{
+      display: flex;
+      justify-content: space-between;
+      padding: 2% 0 2% 0;
+      .realtors_link{
+        display: flex;
+        width: fit-content;
+        white-space: nowrap;
+        align-items: center;
+        justify-content: flex-end;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #0069FF;
+        text-decoration: none;
+        img{
+          padding-left: 5%;
+        }
+      }
+    }
+    .realtor{
+      height: 300px;
+      width: 100%;
+      display: flex;
+      flex-flow: column wrap;
+      gap: 30px 20px;
+    }
+  }
+}
