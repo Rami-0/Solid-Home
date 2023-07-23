@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Iuser, loginCreds } from '../../types/user';
-import { _login, _registerUser } from '../../api/api_login_register';
+import { Iuser, loginCreds, otp } from '../../types/user';
+import {
+  _createVerificationData,
+  _login,
+  _registerUser,
+  _verificatCode
+} from '../../api/api_login_register';
+import { VerificationData } from './../../types/user';
 
 export const fetchLogin = createAsyncThunk(
   'Auth/login',
@@ -16,6 +22,17 @@ export const fetchRegister = createAsyncThunk(
     return res.data;
   }
 );
+export const fetchCreateVerification = createAsyncThunk(
+  'Auth/verification/data',
+  async (data: VerificationData) => {
+    const res = await _createVerificationData(data);
+    return res.data;
+  }
+);
+export const fetchVerificatCode = createAsyncThunk('Auth/verification', async (data: otp) => {
+  const res = await _verificatCode(data);
+  return res.data;
+});
 
 const initialState = {
   isAuthenticated: false as boolean,
@@ -54,13 +71,39 @@ const authSlice = createSlice({
     });
     //! Register handle
     builder.addCase(fetchRegister.fulfilled, (state, action) => {
-      console.log('done');
+      console.log('Register request fulfilled:', action.meta.arg);
+      state.auth = action.meta.arg;
     });
     builder.addCase(fetchRegister.pending, (state) => {
       console.log('wait...');
       // state.isCreating = 'pending';
     });
     builder.addCase(fetchRegister.rejected, (state) => {
+      console.log('fail');
+      // state.isCreating = 'pending';
+    });
+    //! create verification handle
+    builder.addCase(fetchCreateVerification.fulfilled, (state, action) => {
+      console.log('sent');
+    });
+    builder.addCase(fetchCreateVerification.pending, (state) => {
+      console.log('wait...');
+      // state.isCreating = 'pending';
+    });
+    builder.addCase(fetchCreateVerification.rejected, (state) => {
+      console.log('fail');
+      // state.isCreating = 'pending';
+    });
+    //! verificatCode handle
+    builder.addCase(fetchVerificatCode.fulfilled, (state, action) => {
+      console.log('sent');
+      console.log(action);
+    });
+    builder.addCase(fetchVerificatCode.pending, (state) => {
+      console.log('wait...');
+      // state.isCreating = 'pending';
+    });
+    builder.addCase(fetchVerificatCode.rejected, (state) => {
       console.log('fail');
       // state.isCreating = 'pending';
     });

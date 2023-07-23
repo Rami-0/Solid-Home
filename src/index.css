@@ -7,4 +7,10 @@
 .App{
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+@media (max-width:1000px) {
+  .App{
+    padding-top: 65px;
+  }
 }

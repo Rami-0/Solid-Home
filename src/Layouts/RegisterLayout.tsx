@@ -4,10 +4,7 @@ import OTP_Form from '../Pages/AutorizationPage/Components/OTP_Form/OTP_Form';
 import PasswordAuthorizationForm from '../Pages/AutorizationPage/Components/PasswordAutorizationForm/PasswordAuthorizationForm';
 
 const RegisterLayout = () => {
-  // const registerFormFlow = ['register', 'otp', 'password'];
   const [page, setPage] = useState(0);
-
-  // const loginFormFlow = ['login', 'otp'];
   const nextPage = () => {
     setPage(page + 1);
     return 0;

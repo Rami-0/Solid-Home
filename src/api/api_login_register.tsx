@@ -1,24 +1,10 @@
 import axios from 'axios';
-import { Iuser, loginCreds } from '../types/user';
+import { Iuser, VerificationData, loginCreds, otp, password } from '../types/user';
 const BASE_URL = 'http://13.48.58.81:8000/my_auth/api/';
-interface password {
-  password1: string;
-  password2: string;
-}
-interface VerificationData {
-  email: string;
-  phoneNumber: string;
-}
-interface otp {
-  verification_code: string;
-}
 
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
-    // 'Access-Control-Allow-Origin': 'http://localhost:3000',
-    // 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-    // 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Content-Type': 'application/json',
     'X-Custom-Header': 'foobar'
   }
@@ -43,13 +29,9 @@ export const _registerUser = async (userData: Iuser) => {
   }
 };
 
-export const _login = async ({ email, phone_number, password }: loginCreds) => {
+export const _login = async (userData: loginCreds) => {
   try {
-    const response = await api.post('login/', {
-      email,
-      phone_number,
-      password
-    });
+    const response = await api.post('login/', userData);
     return response.data;
   } catch (error) {
     // Handle error here
@@ -60,26 +42,23 @@ export const _login = async ({ email, phone_number, password }: loginCreds) => {
 
 //? verification
 // export const _verificationCode = async (data: otp) => api.post('verification/', data);
-export const _verificationCode = async (data: otp) => {
+export const _verificatCode = async (data: otp) => {
   try {
     const response = await api.post('verification/', data);
     return response.data;
   } catch (error) {
-    // Handle error here
     console.error('Error during verification:', error);
     throw error;
   }
 };
 
-// export const _createVerificationData = async (data: VerificationData) =>
-//   api.post('verification/data/', data);
 export const _createVerificationData = async (data: VerificationData) => {
   try {
     const response = await api.post('verification/data/', data);
     return response.data;
   } catch (error) {
     // Handle error here
-    console.error('Error during verification data creation:', error);
+    console.error('Check your phone number or E-mail', error);
     throw error;
   }
 };

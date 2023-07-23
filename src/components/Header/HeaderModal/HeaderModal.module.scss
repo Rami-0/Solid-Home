@@ -1,0 +1,62 @@
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 326px;
+  height: fit-content;
+  right: 0;
+  top: 50px;
+  z-index: 100;
+  gap: 14px;
+  padding: 22px 20px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  background: var(--bg-pr);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.25), -2px -2px 6px 0px rgba(0, 0, 0, 0.25);
+  .modal--buttonWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--sec-text);
+    padding-left: 0;
+    transition: all 0.5s ease-in-out;
+    :hover {
+      color: var(--pr-text);
+      cursor: pointer;
+    }
+    > img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  > hr {
+    width: 176px;
+    margin: 9px 0;
+  }
+}
+
+.modal--true {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
+}
+.modal--false {
+  transform: scale(1) translateX(100px);
+  opacity: 0;
+  pointer-events: none;
+  .modal--buttonWrapper {
+    padding-left: 30px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .modal {
+    right: -30px;
+  }
+  .modal_mobile--map {
+    display: grid;
+    place-items: center;
+    height: 95px;
+  }
+}
