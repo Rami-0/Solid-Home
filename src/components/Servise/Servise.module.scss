@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-between;
     .content{
+      box-shadow: 0px 0px 3.325740337371826px 0px #00000040;
       background-color: #fff;
       height: fit-content;
       width: 31%;
@@ -42,6 +43,30 @@
     }
     .content:nth-child(2) img{
       height: 172px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .servise{
+    background-color: #fff;
+    .servise_content{
+      flex-direction: column;
+      .content{
+        width: 75%;
+        margin: 0 auto;
+        margin-top: 4%;
+      }
+    }
+  }
+}
+@media (max-width: 576px) {
+  .servise{
+    .servise_content{
+      .content{
+        width: 88%;
+        margin: 0 auto;
+        margin-top: 4%;
+      }
     }
   }
 }
