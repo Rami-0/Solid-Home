@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import scss from './HeaderModal.module.scss';
 import Add from '../assets/Add.svg';
 import mailbox from '../assets/mailbox.svg';
@@ -8,6 +8,8 @@ import mdi_login from '../assets/mdi_login.svg';
 import map from '../assets/map.svg';
 import Button from './../../Button/Button';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
+import { useCookies } from 'react-cookie';
 
 interface props {
   modal: boolean;
@@ -15,6 +17,12 @@ interface props {
 }
 
 export const ModalLoggedIn: React.FC<props> = ({ modal, setModal }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['refresh']);
+  const { isAuthenticated, Logout } = useAuth();
+  const handleLogout = () => {
+    Logout();
+    removeCookie('refresh');
+  };
   return (
     <div className={scss['modal'] + ' ' + scss[`modal--${modal}`]}>
       <span className={scss['modal--buttonWrapper']}>
@@ -41,7 +49,7 @@ export const ModalLoggedIn: React.FC<props> = ({ modal, setModal }) => {
       <span className={scss['modal--buttonWrapper']}>
         <p className="titleFooter--1">Пожаловаться</p>
       </span>
-      <span className={scss['modal--buttonWrapper']}>
+      <span onClick={handleLogout} className={scss['modal--buttonWrapper']}>
         <img src={logout} alt="logout icon" />
         <p className="titleFooter--1">Выйти</p>
       </span>
@@ -50,6 +58,12 @@ export const ModalLoggedIn: React.FC<props> = ({ modal, setModal }) => {
 };
 export const Modal_mobil_LoggedIn: React.FC<props> = ({ modal, setModal }) => {
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(['refresh']);
+  const { isAuthenticated, Logout } = useAuth();
+  const handleLogout = () => {
+    Logout();
+    removeCookie('refresh');
+  };
   return (
     <div className={scss['modal'] + ' ' + scss[`modal--${modal}`]}>
       <span className={scss['modal--buttonWrapper']} onClick={() => navigate('Rent')}>
@@ -93,7 +107,7 @@ export const Modal_mobil_LoggedIn: React.FC<props> = ({ modal, setModal }) => {
       <span className={scss['modal--buttonWrapper']}>
         <p className="titleFooter--1">Пожаловаться</p>
       </span>
-      <span className={scss['modal--buttonWrapper']}>
+      <span className={scss['modal--buttonWrapper']} onClick={handleLogout}>
         <img src={logout} alt="logout icon" />
         <p className="titleFooter--1">Выйти</p>
       </span>
@@ -102,6 +116,7 @@ export const Modal_mobil_LoggedIn: React.FC<props> = ({ modal, setModal }) => {
 };
 
 export const Modal_mobile: React.FC<props> = ({ modal, setModal }) => {
+  const navigate = useNavigate();
   return (
     <div className={scss['modal'] + ' ' + scss[`modal--${modal}`]}>
       <span className={scss['modal--buttonWrapper']}>
@@ -120,7 +135,7 @@ export const Modal_mobile: React.FC<props> = ({ modal, setModal }) => {
         <p className="titleFooter--1">Застройщики</p>
       </span>
       <hr className="divider" />
-      <span className={scss['modal--buttonWrapper']}>
+      <span className={scss['modal--buttonWrapper']} onClick={() => navigate('/login')}>
         <img src={mdi_login} alt="icon" />
         <p className="titleFooter--1">Войти</p>
       </span>

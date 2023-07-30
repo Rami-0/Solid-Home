@@ -4,6 +4,7 @@ export interface Iuser {
   email: string;
   phone_number: string;
   accessToken?: string;
+  roles?: Array<number>;
 }
 
 export interface loginCreds {
@@ -13,15 +14,18 @@ export interface loginCreds {
 }
 
 export interface VerificationData {
-  email?: string;
-  phoneNumber?: string;
+  user_id: number;
+  email?: boolean;
+  phoneNumber?: boolean;
 }
 
 export interface otp {
+  user_id: number;
   verification_code: number;
 }
 
 export interface password {
+  user_id: number;
   password1: string;
   password2: string;
 }

@@ -3,33 +3,31 @@ import InputMui from './../../../../components/InputMui/InputMui';
 
 import scss from './LoginForm.module.scss';
 import Button from './../../../../components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { GoogleLoginButton } from '../../../../components/GoogleButtons/GoogleButtons';
-import { gapi } from 'gapi-script';
+// import { gapi } from 'gapi-script';
 import { multi_stepFormProps } from '../../../../types/multiFormProps';
 import { useTranslation } from 'react-i18next';
 import { emailPattern, phonePattern } from '../../../../constants/RegExp';
-import useAuth from './../../../../hooks/useAuth';
 import { loginCreds } from '../../../../types/user';
-import { fetchLogin } from '../../../../redux/Slices/authSlice';
+import { fetchLogin, fetchUserData } from '../../../../redux/Slices/authSlice';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { useCookies } from 'react-cookie';
+import useAuth from '../../../../hooks/useAuth';
+import Loading from '../../../../components/Loading/Loading';
 
-interface LoginFormProps extends multi_stepFormProps {
-  requsetNewPass?: any;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
-  const navigate = useNavigate();
-  const { t } = useTranslation(['Login']);
-  const translationPath = 'Login.';
-  const inputsTranslationPath = 'inputs.';
-
-  const { auth, setAuth } = useAuth();
-
+const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [inputError, setInputError] = useState<boolean>();
+  const [cookies, setCookie, removeCookie] = useCookies(['refresh']);
+  const { isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation(['Login']);
 
+  const translationPath = 'Login.';
+  const inputsTranslationPath = 'inputs.';
   let data: loginCreds;
 
   function checkInput(input: string) {
@@ -41,7 +39,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
       };
       return 'Email';
     }
-
     if (phonePattern.test(input)) {
       setInputError(false);
       data = {
@@ -59,15 +56,28 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
   const dispatch = useAppDispatch();
   const submitHandler = (e: any) => {
     e.preventDefault();
-    // setUser(data);
-    dispatch(
+    const currentDate = new Date();
+    const nextWeekDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    const req = dispatch(
       fetchLogin({
         email: userName,
         phone_number: userName,
         password: password
       })
+      // nextPage ? nextPage() : '';
     );
-    nextPage ? nextPage() : '';
+
+    req.then((res) => {
+      if (res.payload?.refresh) {
+        setCookie('refresh', res?.payload?.refresh, {
+          expires: nextWeekDate
+        });
+        dispatch(fetchUserData(res?.payload?.access));
+      }
+    });
+    req.catch((err) => console.error(err));
+
     // TODO : Add code here
   };
 
@@ -83,12 +93,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ nextPage }) => {
     // gapi.load('client:auth2', start);
     checkInput(userName);
   });
-  console.log(inputError);
 
   const handleReturnPassword = (e: any) => {
     e.preventDefault();
     navigate('/ReturnPassword');
   };
+
+  if (isAuthenticated) {
+    const goTo = location.state?.from?.pathname;
+    return <Navigate to={`${goTo ? goTo : '/'}`} />;
+  }
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className={scss['formWrapper']}>

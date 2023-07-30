@@ -17,16 +17,17 @@ interface OTPprops extends multi_stepFormProps {
 
 const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDirect }) => {
   const { t } = useTranslation(['OTP']);
-  const translationPath = 'Otp.';
   const dispatch = useAppDispatch();
   const [otp, setOtp] = useState('');
-  const { auth } = useAuth();
+  const { auth, user_id, loading } = useAuth();
   const [sendTo, setSendTo] = useState({
     name: 'phone_number',
     value: auth?.phone_number
   });
-  const { timer, setTimer } = useTimer(10);
+  const { timer, setTimer } = useTimer();
   const [isSent, setIsSent] = useState(false);
+
+  const translationPath = 'Otp.';
 
   const handleSendToEmail = () => {
     setSendTo({
@@ -50,6 +51,7 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
       });
     }
   }, []);
+
   useEffect(() => {
     if (!isSent) {
       handelRequestOtp();
@@ -65,31 +67,32 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
     e.preventDefault();
     const req = dispatch(
       fetchVerificatCode({
+        user_id: user_id ? user_id : 0,
         verification_code: Number(otp)
       })
     );
     req
       .then((response) => {
-        console.log('Request fulfilled:', response);
-        nextPage ? nextPage() : '';
+        if (response.meta.requestStatus === 'fulfilled') nextPage ? nextPage() : '';
       })
-      .catch((error) => {
-        console.log('Request error:', error);
+      .catch(() => {
+        console.log('Request error');
       });
-
-    //TODO : function
   };
 
   //? sent the request
   const handelRequestOtp = () => {
-    const req = dispatch(fetchCreateVerification({ [sendTo.name]: sendTo.value }));
-    req
-      .then((response) => {
-        console.log('sent-1');
-      })
-      .catch((error) => {
-        console.log('error-1');
+    if (!loading) {
+      const req = dispatch(
+        fetchCreateVerification({
+          user_id: user_id ? user_id : 0,
+          [sendTo.name]: true
+        })
+      );
+      req.catch(() => {
+        console.log('not able to send, check your number or e-mail');
       });
+    }
   };
 
   // render

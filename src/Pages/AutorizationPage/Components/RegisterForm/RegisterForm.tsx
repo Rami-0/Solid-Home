@@ -11,11 +11,15 @@ import { multi_stepFormProps } from '../../../../types/multiFormProps';
 import { RegisterInputs } from '../../../../constants/RegisterInputs';
 import { useTranslation } from 'react-i18next';
 import useAuth from './../../../../hooks/useAuth';
+import Loading from '../../../../components/Loading/Loading';
 
 const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
-  const { t } = useTranslation(['Register']);
-  const translationPath = 'Register.';
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { loading } = useAuth();
+  const { t } = useTranslation(['Register']);
+
+  const translationPath = 'Register.';
 
   const [values, setValues] = useState({
     first_name: '',
@@ -24,14 +28,12 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
     phone_number: '+996'
   });
 
-  const navigate = useNavigate();
-
   const submitHandler = (e: any) => {
     e.preventDefault();
     const req = dispatch(fetchRegister(values));
     req
       .then((response) => {
-        console.log('Request fulfilled:', response);
+        console.log('Request fulfilled:', response.payload?.['200'].user_id);
         nextPage ? nextPage() : '';
       })
       .catch((error) => {
@@ -43,6 +45,8 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className={scss['formWrapper']}>

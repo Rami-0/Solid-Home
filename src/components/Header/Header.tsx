@@ -13,7 +13,7 @@ import hamburger from './assets/hamburger.svg';
 import bell from './assets/bell.svg';
 import heart from './assets/heart-linear.svg';
 import mailbox from './assets/mailbox.svg';
-import translation from './assets/translation.png';
+import translation from './assets/translation.svg';
 import DefPfp from './assets/DefPfp.png';
 import useScreenWidth from '../../hooks/useScreenWidth';
 
@@ -27,7 +27,7 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
   const translationPath = 'Header.';
   const [modal, setModal] = useState(false);
   const screenWidth = useScreenWidth();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const nav_links = [
     {
       path: 'Rent',
@@ -52,15 +52,15 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
   ];
   const [currnetPage, setCurrentPage] = useState<string>();
   const navigate = useNavigate();
-  const { isAuthenticated, auth } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (pathname === '/') {
+    if (location.pathname === '/') {
       setCurrentPage('Rent');
     } else {
-      setCurrentPage(pathname.split('/')[1]);
+      setCurrentPage(location.pathname.split('/')[1]);
     }
-  }, [pathname]);
+  }, [location.pathname]);
 
   const handleChangingLanguage = () => {
     if (i18n.language === 'en') {
@@ -105,12 +105,17 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
         );
       } else {
         return (
-          <Button
-            variant={'primary'}
-            style={{ marginLeft: 'auto' }}
-            onClick={() => navigate('/login')}>
-            <p>{t(`${translationPath}login`)}</p>
-          </Button>
+          <>
+            <Button variant={'noBorder'} onClick={handleChangingLanguage}>
+              <img src={translation} width={25} height={25} alt="" />
+            </Button>
+            <Button
+              variant={'primary'}
+              style={{ marginLeft: 'auto' }}
+              onClick={() => navigate('/login', { state: { from: location }, replace: true })}>
+              <p>{t(`${translationPath}login`)}</p>
+            </Button>
+          </>
         );
       }
     }
