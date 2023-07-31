@@ -21,9 +21,9 @@ const BuildingCard: React.FC<BuildingsCard> = ({
       <div className={scss['about_card']}>
         <h2>{companyName}</h2>
         <p>{description}</p>
-        <div className={scss['about_link']}>
-          <Link to={pathCompany}>{t('Building.sait')}</Link>
-        </div>
+        <Link to={pathCompany} className={scss['about_link']}>
+          {t('Building.sait')}
+        </Link>
       </div>
     </div>
   );

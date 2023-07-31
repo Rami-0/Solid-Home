@@ -33,7 +33,29 @@ const DiscountSlider: React.FC = () => {
     slidesToShow: 4,
     slidesToScroll: 1,
     prevArrow: <SamplePrevArrow />,
-    nextArrow: <SampleNextArrow />
+    nextArrow: <SampleNextArrow />,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 900,
+        settings: {
+          slidesToShow: 2.06,
+          arrows: false
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1.05,
+          arrows: false
+        }
+      }
+    ]
   };
   const renderCard = useMemo(
     () => slider_data.map((slider, index) => <DiscountCard key={index} {...slider} />),

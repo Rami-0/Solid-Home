@@ -1,6 +1,6 @@
 .container_discount{
-  width: 90%;
-  padding: 20px 0 70px 0;
+  width: 88%;
+  padding: 20px 0 50px 0;
   margin: 0 auto;
 
   h1{
@@ -12,7 +12,7 @@
     border-radius: 50px;
     position: absolute;
     top: 40%;
-    left: -3%;
+    left: -3.5%;
     background-color: #fff;
     z-index: 60;
     box-shadow: 0px 1px 4px 0px #00000040;
@@ -26,7 +26,7 @@
     border-radius: 50px;
     position: absolute;
     top: 40%;
-    right: -2%;
+    right: -3%;
     background-color: #fff;
     z-index: 60;
     box-shadow: 0px 1px 4px 0px #00000040;
@@ -45,5 +45,45 @@
     position: relative;
     top: 27%;
     left: 35%;
+  }
+}
+@media (max-width: 1200px) {
+  .container_discount{
+    .left_back{
+      left: -4%;
+    }
+  }
+}
+@media (max-width: 992px) {
+  .container_discount{
+    h1{
+      font-size: 20px;
+      line-height: 29px;
+    }
+    .left_back{
+      left: -4%;
+      width: 45px;
+      height: 45px;
+    }
+    .right_back{
+      right: -3%;
+      width: 45px;
+      height: 45px;
+    }
+    .arrow{
+      top: 25%;
+    }
+    .left_arrow{
+      top: 25%;
+      left: 30%;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .container_discount{
+    h1{
+      font-size: 18px;
+      line-height: 20px;
+    }
   }
 }
