@@ -5,7 +5,8 @@
     "next": "Next",
     "dontHave": "Don't have an account yet?",
     "registerRN": "Register now!",
-    "google": "Login with Google"
+    "google": "Login with Google",
+    "error": "email or password is not correct!"
   },
   "ReturnYourPassword": {
     "title": "Return Your Password",
@@ -14,7 +15,7 @@
     "dontHave": "Don't have an account yet?",
     "registerRN": "Register now!"
   },
-  "inputs":{
+  "inputs": {
     "username": "Phone number or e-mail:",
     "placeholder": "Phone number or e-mail",
     "password": "Password"

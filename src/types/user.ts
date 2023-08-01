@@ -8,8 +8,8 @@ export interface Iuser {
 }
 
 export interface loginCreds {
-  email?: string;
-  phone_number?: string;
+  email?: string | null;
+  phone_number?: string | null;
   password: string;
 }
 

@@ -17,6 +17,11 @@ const RequireAuth = ({ allowedRoles }) => {
     if (auth?.roles) {
       setIsLoading(false);
     }
+    if (!isAuthenticated) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
+    }
   }, [auth]);
 
   if (isLoading) {

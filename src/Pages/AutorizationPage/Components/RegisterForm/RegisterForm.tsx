@@ -17,6 +17,7 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { loading } = useAuth();
+  const [error, setError] = useState<string>();
   const { t } = useTranslation(['Register']);
 
   const translationPath = 'Register.';
@@ -31,19 +32,19 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
   const submitHandler = (e: any) => {
     e.preventDefault();
     const req = dispatch(fetchRegister(values));
-    req
-      .then((response) => {
-        console.log('Request fulfilled:', response.payload?.['200'].user_id);
+    req.then((response) => {
+      console.log('Request fulfilled:', response);
+      if (response.payload?.['200']) {
         nextPage ? nextPage() : '';
-      })
-      .catch((error) => {
-        console.log('Request error:', error);
-      });
-    console.log(values);
+      } else {
+        setError('user with this email or phone number already registered, try to login!');
+      }
+    });
   };
 
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    setError(undefined);
   };
 
   if (loading) return <Loading />;
@@ -63,6 +64,13 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
             onChange={onChange}
           />
         ))}
+        {error ? (
+          <p
+            className={'Subtitle--3'}
+            style={{ color: 'var(--error)', maxWidth: '100%', marginBottom: '5px' }}>
+            {error}
+          </p>
+        ) : null}
         <Button variant={'primary'} style={{ height: 55 }} type={'submit'}>
           <p className="Button--2">{t(`${translationPath}next`)}</p>
         </Button>
