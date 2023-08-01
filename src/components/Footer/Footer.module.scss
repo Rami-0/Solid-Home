@@ -68,3 +68,21 @@
     padding-bottom: 0;
   }
 }
+
+@media (max-width: 567px) {
+  .footer {
+
+    .footer__main {
+      flex-direction: column;
+      gap: 60px;
+
+      .footer__main__wrapper--1 {
+        width: 100%;
+      }
+      .footer__main__wrapper--2 {
+        min-width: 208px;
+        width: fit-content;
+      }
+    }
+  }
+}

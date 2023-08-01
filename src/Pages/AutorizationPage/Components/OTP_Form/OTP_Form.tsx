@@ -5,6 +5,10 @@ import { RE_DIGIT } from '../../../../constants/RegExp';
 import useAuth from '../../../../hooks/useAuth';
 import { multi_stepFormProps } from '../../../../types/multiFormProps';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../../hooks/useAppDispatch';
+import { fetchCreateVerification, fetchVerificatCode } from '../../../../redux/Slices/authSlice';
+import useTimer from '../../../../hooks/useTimer';
+import { otp } from '../../../../types/user';
 
 interface OTPprops extends multi_stepFormProps {
   isReturnPass?: boolean;
@@ -13,11 +17,114 @@ interface OTPprops extends multi_stepFormProps {
 
 const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDirect }) => {
   const { t } = useTranslation(['OTP']);
+  const dispatch = useAppDispatch();
+  const [otp, setOtp] = useState('');
+  const { auth, user_id, loading } = useAuth();
+  const [sendTo, setSendTo] = useState({
+    name: 'phone_number',
+    value: auth?.phone_number
+  });
+  const { timer, setTimer } = useTimer();
+  const [isSent, setIsSent] = useState(false);
+
   const translationPath = 'Otp.';
 
-  const [otp, setOtp] = useState('');
-  const { auth } = useAuth();
+  const handleSendToEmail = () => {
+    setSendTo({
+      name: 'email',
+      value: auth?.email
+    });
+    setIsSent(false);
+  };
 
+  useEffect(() => {
+    //? set the value for the request
+    if (auth?.phone_number === '' || auth?.phone_number === undefined) {
+      setSendTo({
+        name: 'email',
+        value: auth?.email
+      });
+    } else {
+      setSendTo({
+        name: 'phone_number',
+        value: auth?.phone_number
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isSent) {
+      handelRequestOtp();
+      setIsSent(true);
+    }
+  }, [sendTo]);
+
+  const handleResend = (e: any) => {
+    e.preventDefault();
+    handelRequestOtp();
+  };
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const req = dispatch(
+      fetchVerificatCode({
+        user_id: user_id ? user_id : 0,
+        verification_code: Number(otp)
+      })
+    );
+    req
+      .then((response) => {
+        if (response.meta.requestStatus === 'fulfilled') nextPage ? nextPage() : '';
+      })
+      .catch(() => {
+        console.log('Request error');
+      });
+  };
+
+  //? sent the request
+  const handelRequestOtp = () => {
+    if (!loading) {
+      const req = dispatch(
+        fetchCreateVerification({
+          user_id: user_id ? user_id : 0,
+          [sendTo.name]: true
+        })
+      );
+      req.catch(() => {
+        console.log('not able to send, check your number or e-mail');
+      });
+    }
+  };
+
+  // render
+
+  const renderTop =
+    sendTo.name != 'email' ? (
+      <p className="Subtitle--4">
+        {t(`${translationPath}top.1-1`)}
+        {sendTo.value + '\n'}
+        <a href="#" onClick={handleSendToEmail}>
+          {t(`${translationPath}top.1-2`)}
+        </a>
+      </p>
+    ) : (
+      <p className="Subtitle--4">
+        {t(`${translationPath}top.1-3`)} {sendTo.value}
+      </p>
+    );
+
+  const renderTopToReturnPass = (
+    <p className="Subtitle--4">
+      {t(`${translationPath}top.2-1`)}
+      {sendTo.value}
+    </p>
+  );
+  const renderTopDirect = (
+    <p className="Subtitle--4">
+      {t(`${translationPath}top.3-1`)} {sendTo.value}
+    </p>
+  );
+
+  //! functions to ControlTheOtpInput
   const onChange = (value: string) => setOtp(value);
   const valueLength = 4;
 
@@ -78,71 +185,7 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
     }
   };
 
-  const [sendTo, setSendTo] = useState({
-    name: 'Number',
-    value: auth?.phone_number
-  });
-
-  useEffect(() => {
-    if (auth?.phone_number === '' || auth?.phone_number === undefined) {
-      setSendTo({
-        name: 'Email',
-        value: auth?.email
-      });
-    } else {
-      setSendTo({
-        name: 'Number',
-        value: auth?.phone_number
-      });
-    }
-  }, []);
-  console.log(sendTo);
-
-  const handleSendToEmail = () => {
-    setSendTo({
-      name: 'Email',
-      value: auth?.email
-    });
-  };
-
-  const handleResend = (e: any) => {
-    e.preventDefault();
-    //TODO : function
-  };
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    nextPage ? nextPage() : '';
-    //TODO : function
-  };
-
-  // render
-
-  const renderTop =
-    sendTo.name != 'Email' ? (
-      <p className="Subtitle--4">
-        {t(`${translationPath}top.1-1`)}
-        {sendTo.value + '\n'}
-        <a href="#" onClick={handleSendToEmail}>
-          {t(`${translationPath}top.1-2`)}
-        </a>
-      </p>
-    ) : (
-      <p className="Subtitle--4">
-        {t(`${translationPath}top.1-3`)} {sendTo.value}
-      </p>
-    );
-
-  const renderTopToReturnPass = (
-    <p className="Subtitle--4">
-      {t(`${translationPath}top.2-1`)}
-      {sendTo.value}
-    </p>
-  );
-  const renderTopDirect = (
-    <p className="Subtitle--4">
-      {t(`${translationPath}top.3-1`)} {sendTo.value}
-    </p>
-  );
+  //*Main Render
 
   return (
     <form className={scss['form']}>
@@ -173,8 +216,13 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
       <Button variant="primary" onClick={handleSubmit} style={{ height: 55 }}>
         <p className="Button--2">{t(`${translationPath}next`)}</p>
       </Button>
-      <Button variant="secondary" onClick={handleResend} style={{ height: 55 }}>
-        <p className="Button--2">{t(`${translationPath}sendAgain`)}</p>
+      <Button
+        variant={timer > 0 ? 'disabled' : 'secondary'}
+        onClick={handleResend}
+        style={{ height: 55 }}>
+        <p className="Button--2">
+          {t(`${translationPath}sendAgain`) + (timer > 0 ? ` - ${timer}` : '')}
+        </p>
       </Button>
       <p className={scss['links'] + ' Subtitle--4'}>
         <a onClick={prevPage}>{t(`${translationPath}back`)}</a>

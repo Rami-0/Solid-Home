@@ -4,15 +4,28 @@
 
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Loading from './Loading/Loading';
+import { useEffect, useState } from 'react';
 
 const RequireAuth = ({ allowedRoles }) => {
-  const { user } = useAuth();
-  const location = useLocation();
-  console.log(user);
+  const { auth, isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
-  return allowedRoles?.find((role) => role === user?.role) ? (
+  const location = useLocation();
+
+  useEffect(() => {
+    if (auth?.roles) {
+      setIsLoading(false);
+    }
+  }, [auth]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return allowedRoles?.some((allowedRole) => auth?.roles?.includes(allowedRole)) ? (
     <Outlet />
-  ) : user?.role ? (
+  ) : isAuthenticated ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />

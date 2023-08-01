@@ -4,20 +4,26 @@ import scss from './PasswordAuthorizationForm.module.scss';
 import FormInput from '../FormInput/FormInput';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
-import { SetUser } from '../../../../redux/Slices/authSlice';
+import { fetchPasswordCreate } from '../../../../redux/Slices/authSlice';
 import Button from '../../../../components/Button/Button';
 import { multi_stepFormProps } from '../../../../types/multiFormProps';
+import Loading from '../../../../components/Loading/Loading';
 const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) => {
-  const { auth } = useAuth();
+  const { user_id, loading } = useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [error, setError] = useState<undefined | string>();
   const [confirm, setConfirm] = useState(false);
+  const [values, setValues] = useState({
+    password1: '',
+    password2: ''
+  });
 
   const inputs = [
     {
       id: '4',
-      name: 'password',
+      name: 'password1',
       type: 'password',
       placeholder: 'Пароль',
       errorMessage: 'Это ненадежный пароль',
@@ -27,7 +33,7 @@ const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) 
     },
     {
       id: '5',
-      name: 'confirmPassword',
+      name: 'password2',
       type: 'password',
       placeholder: 'Подтвердите пароль',
       errorMessage: confirm ? 'Пароли совпадают' : 'Пароли не совпадают',
@@ -36,29 +42,31 @@ const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) 
     }
   ];
 
-  const [values, setValues] = useState({
-    password: '',
-    confirmPassword: ''
-  });
-
   useEffect(() => {
-    if (values.confirmPassword === values.password && values.confirmPassword != '') {
+    if (values.password2 === values.password1 && values.password2 != '') {
       setConfirm(true);
     } else setConfirm(false);
-  }, [values.confirmPassword]);
-
-  console.log(confirm);
+  }, [values.password2]);
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    dispatch(SetUser(values));
-    navigate('/otp');
-    console.log(values);
+    const req = dispatch(fetchPasswordCreate({ user_id: user_id ? user_id : 0, ...values }));
+    req
+      .then((response) => {
+        if (response.payload?.['200']) {
+          navigate('/login');
+        }
+      })
+      .catch(() => {
+        setError('Invalid request, Try Again');
+      });
   };
 
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className={scss['formWrapper']}>
@@ -71,7 +79,7 @@ const PasswordAuthorizationForm: React.FC<multi_stepFormProps> = ({ prevPage }) 
           <FormInput key={index} {...input} confirm={confirm} onChange={onChange} />
         ))}
         <Button variant={'primary'} style={{ height: 55 }} type={'submit'}>
-          <p className="Button--2">Далее</p>
+          <p className="Button--2">{error ? error : 'Далее'}</p>
         </Button>
         <p className={scss['links'] + ' Subtitle--4'}>
           <a onClick={prevPage}>Вернуться назад</a>

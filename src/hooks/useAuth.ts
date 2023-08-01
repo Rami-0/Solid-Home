@@ -1,26 +1,24 @@
 import { useAppDispatch } from './useAppDispatch';
 import { useAppSelector } from './useAppSelector';
-import { SetUser } from '../redux/Slices/authSlice';
+import { SetUser, handleLogout } from '../redux/Slices/authSlice';
 import { Iuser } from '../types/user';
 
 const useAuth = () => {
-  const { auth, isAuthenticated } = useAppSelector((s) => s.Auth);
+  const { auth, isAuthenticated, user_id, loading } = useAppSelector((s) => s.Auth);
   const dispatch = useAppDispatch();
   function setAuth(data: Iuser) {
     dispatch(SetUser(data));
   }
-  // function handleLogin() {
-  //   dispatch(Login);
-  // }
-  // function handleLogout() {
-  //   dispatch(Logout);
-  // }
+  function Logout() {
+    dispatch(handleLogout());
+  }
   return {
     auth,
     setAuth,
-    isAuthenticated
-    // handleLogin,
-    // handleLogout
+    isAuthenticated,
+    user_id,
+    loading,
+    Logout
   };
 };
 

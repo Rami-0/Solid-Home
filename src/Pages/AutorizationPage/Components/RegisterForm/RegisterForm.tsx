@@ -11,11 +11,15 @@ import { multi_stepFormProps } from '../../../../types/multiFormProps';
 import { RegisterInputs } from '../../../../constants/RegisterInputs';
 import { useTranslation } from 'react-i18next';
 import useAuth from './../../../../hooks/useAuth';
+import Loading from '../../../../components/Loading/Loading';
 
 const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
-  const { t } = useTranslation(['Register']);
-  const translationPath = 'Register.';
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { loading } = useAuth();
+  const { t } = useTranslation(['Register']);
+
+  const translationPath = 'Register.';
 
   const [values, setValues] = useState({
     first_name: '',
@@ -24,53 +28,25 @@ const RegisterForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
     phone_number: '+996'
   });
 
-  const { setAuth } = useAuth();
-  const navigate = useNavigate();
-
-  const data = {
-    first_name: 'string',
-    last_name: 'string',
-    email: 'user@example.com',
-    phone_number: '+999999999999'
-  };
-
-  // async function test() {
-  //   const response = await fetch('http://13.48.58.81:8000/my_auth/api/registration/', {
-  //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
-  //     mode: 'cors', // no-cors, *cors, same-origin
-  //     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-  //     credentials: 'same-origin', // include, *same-origin, omit
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'X-Custom-Header': 'foobar'
-  //     },
-  //     redirect: 'follow', // manual, *follow, error
-  //     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  //     body: JSON.stringify(data) // body data type must match "Content-Type" header
-  //   });
-  //   console.log(response.json());
-  //   return response.json(); // parses JSON response into native JavaScript objects
-  // }
-
   const submitHandler = (e: any) => {
     e.preventDefault();
-    nextPage ? nextPage() : '';
-    dispatch(
-      fetchRegister({
-        first_name: 'string',
-        last_name: 'string',
-        email: 'user@example.com',
-        phone_number: '+999999999999'
+    const req = dispatch(fetchRegister(values));
+    req
+      .then((response) => {
+        console.log('Request fulfilled:', response.payload?.['200'].user_id);
+        nextPage ? nextPage() : '';
       })
-    );
-    // test();
-    // setUser(values);
+      .catch((error) => {
+        console.log('Request error:', error);
+      });
     console.log(values);
   };
 
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className={scss['formWrapper']}>
