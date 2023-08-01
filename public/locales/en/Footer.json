@@ -1,0 +1,28 @@
+{
+  "info": "Welcome to SolidHome - a site for buying, renting and selling real estate in Kyrgyzstan! Our platform offers a wide range of options for those interested in buying, renting or selling property in this beautiful country. Whether you are looking for a cozy apartment in the center of Bishkek or a spacious villa in the suburbs, we have plenty to choose from.",
+  "rent_items": {
+    "1": "Rooms",
+    "2": "Apartments",
+    "3": "houses",
+    "4": "Plot",
+    "5": "commercial",
+    "6": "Daily rent",
+    "7": "All rental announcements"
+  },
+  "buy_items": {
+    "1": "Apartments",
+    "2": "New buildings",
+    "3": "houses",
+    "4": "Plot",
+    "5": "commercial",
+    "6": "Buy from owner",
+    "7": "Buy from a realtor",
+    "8": "all announcements"
+  },
+  "sell_items": {
+    "1": "my announcements",
+    "2": "Sellers Guide",
+    "3": "Find a realtor"
+  },
+  "rights": "All rights reserved"
+}

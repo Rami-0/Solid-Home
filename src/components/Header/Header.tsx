@@ -55,11 +55,11 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (location.pathname === '/') {
-      setCurrentPage('Rent');
-    } else {
-      setCurrentPage(location.pathname.split('/')[1]);
-    }
+    // if (location.pathname === '/') {
+    //   setCurrentPage('Rent');
+    // } else {
+    setCurrentPage(location.pathname.split('/')[1]);
+    // }
   }, [location.pathname]);
 
   const handleChangingLanguage = () => {
@@ -105,17 +105,16 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
         );
       } else {
         return (
-          <>
-            <Button variant={'noBorder'} onClick={handleChangingLanguage}>
+          <div style={{ display: 'flex', gap: 20, marginLeft: 'auto' }}>
+            <Button variant={'noBorder'} style={{ right: '0' }} onClick={handleChangingLanguage}>
               <img src={translation} width={25} height={25} alt="" />
             </Button>
             <Button
               variant={'primary'}
-              style={{ marginLeft: 'auto' }}
               onClick={() => navigate('/login', { state: { from: location }, replace: true })}>
               <p>{t(`${translationPath}login`)}</p>
             </Button>
-          </>
+          </div>
         );
       }
     }
@@ -140,7 +139,7 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
               onClick={() => setModal((prev) => !prev)}>
               <img src={hamburger} width="40" height="40" style={{ borderRadius: 20 }} alt="" />
             </Button>
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <Modal_mobil_LoggedIn modal={modal} setModal={setModal} />
             ) : (
               <Modal_mobile modal={modal} setModal={setModal} />
@@ -177,7 +176,10 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
 
   return (
     <header className={scss['header']} style={style}>
-      <span className={scss['header__logo']}>
+      <span
+        className={scss['header__logo']}
+        style={{ cursor: 'pointer' }}
+        onClick={() => navigate('/')}>
         <img src={Logo} alt="Logo" />
       </span>
       {!AuthHeader ? (

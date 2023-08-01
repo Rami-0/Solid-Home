@@ -16,12 +16,22 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 386px;
   }
   .links {
     color: var(--sec-text);
     a {
       text-decoration: underline;
       cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .formWrapper {
+    form {
+      width: 100 ;
+      padding: 0 12px;
     }
   }
 }

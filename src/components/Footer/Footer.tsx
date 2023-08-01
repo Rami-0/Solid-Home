@@ -4,30 +4,34 @@ import logo__blue from '../../assets/Logo--blue.svg';
 import app_store from './assets/app-store-badge.png';
 import google_play from './assets/google-play-badge.png';
 import { APPSTORE_LINK, PLAYSTORE_LINK } from '../../constants/App_Links';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation('Footer');
   const rent_items = [
-    'Комнаты',
-    'Квартиры',
-    'Дома',
-    'Участка',
-    'Коммерческая',
-    'Посуточная аренда',
-    'Все объявления об аренде'
+    { translate: '1', link: '/' },
+    { translate: '2', link: '/' },
+    { translate: '3', link: '/' },
+    { translate: '4', link: '/' },
+    { translate: '5', link: '/' },
+    { translate: '6', link: '/' },
+    { translate: '7', link: '/' }
   ];
-
   const buy_items = [
-    'Квартиры',
-    'Новостройки',
-    'Дома',
-    'Участка',
-    'Коммерческая',
-    'Купить от собственника',
-    'Купить от риелтора',
-    'Все объявления'
+    { translate: '1', link: '/' },
+    { translate: '2', link: '/' },
+    { translate: '3', link: '/' },
+    { translate: '4', link: '/' },
+    { translate: '5', link: '/' },
+    { translate: '6', link: '/' },
+    { translate: '7', link: '/' },
+    { translate: '8', link: '/' }
   ];
-
-  const sell_items = ['Мои объявления', 'Руководство для продавцов', 'Найти риелтора'];
+  const sell_items = [
+    { translate: '1', link: '/' },
+    { translate: '2', link: '/' },
+    { translate: '3', link: '/' }
+  ];
 
   return (
     <section className={scss['footer']}>
@@ -35,13 +39,7 @@ const Footer: React.FC = () => {
         <div className={scss['footer__main__wrapper--1']}>
           <span className={scss['footer__main__wrapper--1--description']}>
             <img src={logo__blue} alt="logo" />
-            <p className="Subtitle--2--footer">
-              Добро пожаловать на SolidHome - сайт по покупке, аренде и продаже недвижимости в
-              Кыргызстане! Наша платформа предлагает широкий спектр возможностей для тех, кто
-              заинтересован в покупке, аренде или продаже недвижимости в этой прекрасной стране.
-              Если вы ищете уютную квартиру в центре Бишкека или просторную виллу в пригороде, у нас
-              есть из чего выбрать.
-            </p>
+            <p className="Subtitle--2--footer">{t('info')}</p>
           </span>
           <span className={scss['footer__main__wrapper--1--storeBadgets']}>
             <a href={APPSTORE_LINK} rel="noreferrer" target="_blank">
@@ -59,13 +57,13 @@ const Footer: React.FC = () => {
           </span>
           <hr className="divider" />
           <span className={scss['footer__main__wrapper--2--links']}>
-            {rent_items.map((item, index) => (
-              <p
+            {rent_items.map(({ translate, link }, index) => (
+              <a
                 key={index}
                 className={scss['link'] + ' Subtitle--1--footer'}
                 style={{ color: 'var(--blue)' }}>
-                {item}
-              </p>
+                {t(`rent_items.${translate}`)}
+              </a>
             ))}
           </span>
         </div>
@@ -76,13 +74,13 @@ const Footer: React.FC = () => {
           </span>
           <hr className="divider" />
           <span className={scss['footer__main__wrapper--2--links']}>
-            {buy_items.map((item, index) => (
-              <p
+            {buy_items.map(({ translate, link }, index) => (
+              <a
                 key={index}
                 className={scss['link'] + ' Subtitle--1--footer'}
                 style={{ color: 'var(--blue)' }}>
-                {item}
-              </p>
+                {t(`buy_items.${translate}`)}
+              </a>
             ))}
           </span>
         </div>
@@ -93,20 +91,20 @@ const Footer: React.FC = () => {
           </span>
           <hr className="divider" />
           <span className={scss['footer__main__wrapper--2--links']}>
-            {sell_items.map((item, index) => (
-              <p
+            {sell_items.map(({ translate, link }, index) => (
+              <a
                 key={index}
                 className={scss['link'] + ' Subtitle--1--footer'}
                 style={{ color: 'var(--blue)' }}>
-                {item}
-              </p>
+                {t(`sell_items.${translate}`)}
+              </a>
             ))}
           </span>
         </div>
       </main>
 
       <div className={scss['footer__creds'] + ' container'}>
-        <p className="Subtitle--3--footer">©2023 SolidHome. Все права защищены</p>
+        <p className="Subtitle--3--footer">©2023 SolidHome. {t('rights')}</p>
       </div>
     </section>
   );

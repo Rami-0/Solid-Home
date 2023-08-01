@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../../hooks/useAppDispatch';
 import { fetchCreateVerification, fetchVerificatCode } from '../../../../redux/Slices/authSlice';
 import useTimer from '../../../../hooks/useTimer';
-import { otp } from '../../../../types/user';
 
 interface OTPprops extends multi_stepFormProps {
   isReturnPass?: boolean;
@@ -24,6 +23,7 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
     name: 'phone_number',
     value: auth?.phone_number
   });
+  const [timerValue, setTimerValue] = useState(60);
   const { timer, setTimer } = useTimer();
   const [isSent, setIsSent] = useState(false);
 
@@ -62,6 +62,8 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
   const handleResend = (e: any) => {
     e.preventDefault();
     handelRequestOtp();
+    setTimer(timerValue * 2);
+    setTimerValue((prev) => prev * 2);
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -213,8 +215,13 @@ const OTP_Form: React.FC<OTPprops> = ({ prevPage, nextPage, isReturnPass, isDire
           />
         ))}
       </span>
-      <Button variant="primary" onClick={handleSubmit} style={{ height: 55 }}>
-        <p className="Button--2">{t(`${translationPath}next`)}</p>
+      <Button
+        variant={loading ? 'disabled' : 'primary'}
+        onClick={handleSubmit}
+        style={{ height: 55 }}>
+        <p className="Button--2">
+          {t(`${translationPath}next`)} {loading ? '...' : null}
+        </p>
       </Button>
       <Button
         variant={timer > 0 ? 'disabled' : 'secondary'}

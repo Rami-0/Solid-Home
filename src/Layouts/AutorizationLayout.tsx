@@ -7,7 +7,7 @@ const AutorizationLayout = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
+        height: 'calc(100vh - 65px)',
         justifyContent: 'center',
         alignItems: 'center'
       }}

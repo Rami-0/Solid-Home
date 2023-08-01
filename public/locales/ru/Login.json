@@ -5,7 +5,8 @@
     "next": "Далее",
     "dontHave": "Еще нет учетной записи?",
     "registerRN": "Зарегистрируйся прямо сейчас!",
-    "google": "Войти с Google"
+    "google": "Войти с Google",
+    "error": "почта или пароль неверны!"
   },
   "ReturnYourPassword": {
     "title": "Верните свой пароль",

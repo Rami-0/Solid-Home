@@ -16,10 +16,16 @@ import { useCookies } from 'react-cookie';
 import useAuth from '../../../../hooks/useAuth';
 import Loading from '../../../../components/Loading/Loading';
 
+interface error {
+  message?: string;
+  user?: boolean;
+  password?: boolean;
+}
+
 const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [inputError, setInputError] = useState<boolean>();
+  const [error, setError] = useState<error>();
   const [cookies, setCookie, removeCookie] = useCookies(['refresh']);
   const { isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
@@ -28,29 +34,42 @@ const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
 
   const translationPath = 'Login.';
   const inputsTranslationPath = 'inputs.';
-  let data: loginCreds;
+  const [data, setData] = useState<loginCreds>({ email: '', password: '', phone_number: '' });
 
   function checkInput(input: string) {
     if (emailPattern.test(input)) {
-      setInputError(false);
-      data = {
+      setError({
+        user: false
+      });
+      setData({
         email: userName,
+        phone_number: null,
         password: password
-      };
-      return 'Email';
+      });
+      return data;
     }
     if (phonePattern.test(input)) {
-      setInputError(false);
-      data = {
+      setError({
+        user: false
+      });
+      setData({
+        email: null,
         phone_number: userName,
         password: password
-      };
-      return 'Phone number';
+      });
+      return data;
     }
     if (input != '') {
-      setInputError(true);
-      return 'Unknown';
+      setData({
+        email: userName,
+        phone_number: null,
+        password: password
+      });
+      setError({
+        user: true
+      });
     }
+    return data;
   }
 
   const dispatch = useAppDispatch();
@@ -58,31 +77,29 @@ const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
     e.preventDefault();
     const currentDate = new Date();
     const nextWeekDate = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-
-    const req = dispatch(
-      fetchLogin({
-        email: userName,
-        phone_number: userName,
-        password: password
-      })
-      // nextPage ? nextPage() : '';
-    );
-
+    const req = dispatch(fetchLogin(checkInput(userName)));
     req.then((res) => {
       if (res.payload?.refresh) {
+        // nextPage ? nextPage() : '';
         setCookie('refresh', res?.payload?.refresh, {
           expires: nextWeekDate
         });
         dispatch(fetchUserData(res?.payload?.access));
       }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (res?.error) {
+        setError({
+          message: 'email or password is not correct!',
+          user: true,
+          password: true
+        });
+      }
     });
-    req.catch((err) => console.error(err));
-
     // TODO : Add code here
   };
 
   const CLIENT_ID = '762305396162-9q67a6e6jhbi7b8pqvkd81qet3q8641j.apps.googleusercontent.com';
-
   useEffect(() => {
     // function start() {
     //   gapi.client.init({
@@ -91,8 +108,10 @@ const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
     //   });
     // }
     // gapi.load('client:auth2', start);
-    checkInput(userName);
   });
+  useEffect(() => {
+    checkInput(userName);
+  }, [userName, password]);
 
   const handleReturnPassword = (e: any) => {
     e.preventDefault();
@@ -118,7 +137,7 @@ const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
           value={userName}
           setValue={setUserName}
           required
-          error={inputError}
+          error={error?.user}
         />
         <InputMui
           id="2"
@@ -128,7 +147,11 @@ const LoginForm: React.FC<multi_stepFormProps> = ({ nextPage }) => {
           setValue={setPassword}
           type="password"
           required
+          error={error?.password}
         />
+        <p className="Subtitle--3" style={{ color: 'var(--error)' }}>
+          {error?.message}
+        </p>
         <p className={scss['links'] + ' Subtitle--4'}>
           <a onClick={handleReturnPassword}>{t(`${translationPath}forgot`)}</a>
         </p>
