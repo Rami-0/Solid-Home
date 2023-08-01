@@ -140,7 +140,7 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
               onClick={() => setModal((prev) => !prev)}>
               <img src={hamburger} width="40" height="40" style={{ borderRadius: 20 }} alt="" />
             </Button>
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <Modal_mobil_LoggedIn modal={modal} setModal={setModal} />
             ) : (
               <Modal_mobile modal={modal} setModal={setModal} />

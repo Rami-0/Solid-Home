@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import Header from '../components/Header/Header';
 import Footer from './../components/Footer/Footer';
-// import { fetchLoginWithToken } from '../redux/Slices/authSlice';
 import useTokenToLogin from '../hooks/useTokenToLogin';
 
 const Layout = () => {

@@ -6,6 +6,22 @@
     "Realtors": "Realtors",
     "Developers": "Developers",
     "login": "Login",
-    "PlaceAnAd": "Place an ad"
+    "PlaceAnAd": "Place an announcements"
+  },
+  "Modal": {
+    "place_ad": "Place an announcements",
+    "favs": "Favorites",
+    "message": "Messages",
+    "profile_control": "Profile control",
+    "profile": "Personal data",
+    "complain": "Complain",
+    "Rent": "Rent",
+    "Purchase": "Purchase",
+    "Sale": "Sale",
+    "Realtors": "Realtors",
+    "Developers": "Developers",
+    "logout": "Logout",
+    "login": "Login",
+    "map": "Find by map"
   }
 }
