@@ -4,6 +4,7 @@
   .container{
     width: 88%;
     margin: 0 auto;
+    // border: 1px solid red;
     .header_building{
       margin: 3% 0;
       display: flex;
@@ -11,6 +12,7 @@
       .building_link{
         display: flex;
         white-space: nowrap;
+        width: fit-content;
         align-items: center;
         font-family: Montserrat;
         font-size: 16px;
@@ -18,14 +20,22 @@
         line-height: 20px;
         color: #0069FF;
         text-decoration: none;
+        margin-right: 5px;
         img{
-          padding-left: 5%;
+          margin-left: 5%;
+          transition: margin-left 0.3s ease;
+        }
+        &:hover{
+          img{
+            margin-left: 12%;
+          }
         }
       }
     }
     .card{
       display: flex;
       justify-content: space-between;
+      // border: 1px solid red;
     }
   }
 }

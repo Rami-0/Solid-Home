@@ -9,19 +9,24 @@
       padding: 2% 0 2% 0;
       .realtors_link{
         display: flex;
-        width: fit-content;
         white-space: nowrap;
+        width: fit-content;
         align-items: center;
-        justify-content: flex-end;
-        cursor: pointer;
         font-family: Montserrat;
         font-size: 16px;
         font-weight: 600;
         line-height: 20px;
         color: #0069FF;
         text-decoration: none;
+        margin-right: 5px;
         img{
-          padding-left: 5%;
+          margin-left: 5%;
+          transition: margin-left 0.3s ease;
+        }
+        &:hover{
+          img{
+            margin-left: 12%;
+          }
         }
       }
     }
@@ -31,7 +36,6 @@
       display: flex;
       flex-flow: column wrap;
       gap: 30px 20px;
-      // border: 1px solid red;
     }
   }
 }
