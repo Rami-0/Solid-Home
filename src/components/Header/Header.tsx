@@ -6,7 +6,12 @@ import Logo from './assets/Logo.svg';
 import Button from './../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import { ModalLoggedIn, Modal_mobil_LoggedIn, Modal_mobile } from './HeaderModal/HeaderModal';
+import {
+  ModalLoggedIn,
+  Modal_mobil_LoggedIn,
+  Modal_mobile,
+  NavModal
+} from './HeaderModal/HeaderModal';
 
 import search from './assets/search.svg';
 import hamburger from './assets/hamburger.svg';
@@ -150,6 +155,25 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
     }
   };
 
+  // ?? test
+
+  const [activePath, setActivePath] = useState('');
+  const [modalPosition, setModalPosition] = useState({ left: 0, top: 0 });
+
+  const handleNavHover = (event: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    const offset = 10;
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const left = rect.left;
+    const top = rect.bottom + offset;
+    setModalPosition({ left, top });
+    setActivePath(path);
+  };
+
+  const handleModalMouseLeave = () => {
+    setActivePath('');
+  };
+
   const renderNav = () => {
     if (screenWidth > 1000) {
       return (
@@ -157,16 +181,28 @@ const Header: React.FC<Iprops> = ({ AuthHeader, style }) => {
           <hr />
           <nav className={scss['header__nav']}>
             {nav_links.map(({ path, title }, index) => (
-              <Link
-                className={
-                  path === currnetPage
-                    ? scss['header__nav__item--active']
-                    : scss['header__nav__item']
-                }
-                to={path}
-                key={index}>
-                <p className="Headline">{title}</p>
-              </Link>
+              <>
+                <Link
+                  onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavHover(e, path)}
+                  className={
+                    path === currnetPage
+                      ? scss['header__nav__item--active']
+                      : scss['header__nav__item']
+                  }
+                  to={path}
+                  key={index}>
+                  <p className="Headline">{title}</p>
+                </Link>
+                {activePath === path && (
+                  <NavModal
+                    path={path}
+                    activePath={activePath}
+                    left={modalPosition.left}
+                    top={modalPosition.top}
+                    onMouseLeave={handleModalMouseLeave}
+                  />
+                )}
+              </>
             ))}
           </nav>
         </>

@@ -13,15 +13,23 @@
     align-items: center;
     padding: 0px;
     gap: 30px;
+    height: 100%;
     * {
       transition: 0.1s;
     }
     .header__nav__item {
-      text-decoration: none;
       color: inherit;
     }
     .header__nav__item--active {
+      color: var(--blue);
+    }
+    :is(.header__nav__item, .header__nav__item--active) {
+      height: 100%;
       text-decoration: none;
+      display: grid;
+      place-items: center;
+    }
+    :is(.header__nav__item, .header__nav__item--active):hover {
       color: var(--blue);
     }
   }

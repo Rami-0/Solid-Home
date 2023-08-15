@@ -5,6 +5,7 @@ import path from '../Building/assets/path.svg';
 import { RealtorsCards } from '../../constants/Realtors';
 import RealtorCard from '../RealtorCard/RealtorCard';
 import { useTranslation } from 'react-i18next';
+import Button from './../Button/Button';
 
 const Realtors: React.FC = () => {
   const { t } = useTranslation(['Realtors']);
@@ -17,9 +18,11 @@ const Realtors: React.FC = () => {
       <div className={scss['container']}>
         <div className={scss['header_realtors']}>
           <h1>{t('Realtors.realtor')}</h1>
-          <Link className={scss['realtors_link']} to={'/Realtors'}>
-            {t('Realtors.more')} <img src={path} alt="blue arrow" />
-          </Link>
+          <Button variant="noBorder">
+            <Link className={scss['realtors_link']} to={'/Realtors'}>
+              {t('Realtors.more')} <img src={path} alt="blue arrow" />
+            </Link>
+          </Button>
         </div>
         <div className={scss['realtor']}>{renderRealtor}</div>
       </div>
