@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { BuildingsCard } from '../../types/types';
 import scss from './BuildingCard.module.scss';
 import { useTranslation } from 'react-i18next';
+import Button from './../Button/Button';
 
 const BuildingCard: React.FC<BuildingsCard> = ({
   logo,
@@ -21,9 +22,11 @@ const BuildingCard: React.FC<BuildingsCard> = ({
       <div className={scss['about_card']}>
         <h2>{companyName}</h2>
         <p>{description}</p>
-        <Link to={pathCompany} className={scss['about_link']}>
-          {t('Building.sait')}
-        </Link>
+        <Button variant="secondary">
+          <Link to={pathCompany} className={scss['about_link']}>
+            {t('Building.sait')}
+          </Link>
+        </Button>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import scss from './Building.module.scss';
 import { building_cards_data } from '../../constants/BuildingCards';
 import BuildingCard from '../BuildingCard/BuildingCard';
 import { useTranslation } from 'react-i18next';
+import Button from '../Button/Button';
 
 const Building: React.FC = () => {
   const { t } = useTranslation(['Building']);
@@ -20,9 +21,11 @@ const Building: React.FC = () => {
       <div className={scss['container']}>
         <div className={scss['header_building']}>
           <h1>{t('Building.company')}</h1>
-          <Link className={scss['building_link']} to={'/Developers'}>
-            {t('Building.more')} <img src={path} alt="blue arrow" />
-          </Link>
+          <Button variant="noBorder">
+            <Link className={scss['building_link']} to={'/Developers'}>
+              {t('Building.more')} <img src={path} alt="blue arrow" />
+            </Link>
+          </Button>
         </div>
         <div className={scss['card']}>{renderBuldingCard}</div>
       </div>

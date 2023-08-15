@@ -5,6 +5,7 @@ import arenda from './assets/arenda.png';
 import prodaja from './assets/prodaja.png';
 import pokupka from './assets/pokupka.png';
 import { useTranslation } from 'react-i18next';
+import Button from './../Button/Button';
 
 const Servise: React.FC = () => {
   const { t } = useTranslation(['Servise']);
@@ -18,7 +19,9 @@ const Servise: React.FC = () => {
             <div className={scss['about_content']}>
               <h2>{t('Servise.Rent')}</h2>
               <p>{t('Servise.Description')}</p>
-              <Link to={'/Rent'}>{t('Servise.Search')}</Link>
+              <Button variant="secondary">
+                <Link to={'/Rent'}>{t('Servise.Search')}</Link>
+              </Button>
             </div>
           </div>
           <div className={scss['content']}>
@@ -26,7 +29,9 @@ const Servise: React.FC = () => {
             <div className={scss['about_content']}>
               <h2>{t('Servise.Sell')}</h2>
               <p>{t('Servise.Description')}</p>
-              <Link to={'/Sale'}>{t('Servise.Place')}</Link>
+              <Button variant="secondary">
+                <Link to={'/Sale'}>{t('Servise.Place')}</Link>
+              </Button>
             </div>
           </div>
           <div className={scss['content']}>
@@ -34,7 +39,9 @@ const Servise: React.FC = () => {
             <div className={scss['about_content']}>
               <h2>{t('Servise.Purchase')}</h2>
               <p>{t('Servise.Description')}</p>
-              <Link to={'/Purchase'}>{t('Servise.View')}</Link>
+              <Button variant="secondary">
+                <Link to={'/Purchase'}>{t('Servise.View')}</Link>
+              </Button>
             </div>
           </div>
         </div>
